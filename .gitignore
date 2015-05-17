@@ -1,0 +1,5 @@
+*.suo
+*.vshost.*
+**/bin/*
+**/obj/*
+*.exe
