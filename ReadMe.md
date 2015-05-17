@@ -1,10 +1,15 @@
 # WinBeacon
 
+## Overview
+
 WinBeacon is a managed (C#) library with a minimal Bluetooth Stack that is able to detect and act as an iBeacon¹.
 
 ## Supported operating systems
 
-This library has been tested on Windows 7 and Windows 8. However, it should also work on Windows XP.
+* Windows XP (not tested, but it should work)
+* Windows 7
+* Windows 8
+
 Windows 10 should have native beacon support which makes this library obsolete.
 
 ## Installation 
