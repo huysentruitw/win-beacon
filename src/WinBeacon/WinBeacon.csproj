@@ -51,6 +51,9 @@
     <Compile Include="Extensions\QueueExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Stack\Hci\DataReceivedEventArgs.cs" />
+    <Compile Include="Stack\Hci\EventCode.cs" />
+    <Compile Include="Stack\Hci\Events\LeAdvertisingEventType.cs" />
+    <Compile Include="Stack\Hci\OpcodeGroup.cs" />
     <Compile Include="Stack\Transports\UsbHciEndpointInfo.cs" />
     <Compile Include="Stack\Transports\UsbHciEndpointType.cs" />
     <Compile Include="Stack\ITransport.cs" />
