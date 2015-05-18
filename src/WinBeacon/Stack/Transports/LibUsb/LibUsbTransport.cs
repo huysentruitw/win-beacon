@@ -29,13 +29,6 @@ namespace WinBeacon.Stack.Transports.LibUsb
         private static readonly TimeSpan writeTimeout = TimeSpan.FromSeconds(5);
 
         private UsbDevice usbDevice;
-        private Dictionary<UsbBluetoothEndpointType, byte> endpointIds = new Dictionary<UsbBluetoothEndpointType, byte>
-            {
-                { UsbBluetoothEndpointType.Commands, 0x00 },
-                { UsbBluetoothEndpointType.Events, 0x81 },
-                { UsbBluetoothEndpointType.AclDataOut, 0x02 },
-                { UsbBluetoothEndpointType.AclDataIn, 0x82 }
-            };
         private Dictionary<UsbBluetoothEndpointType, UsbEndpointBase> endpoints = new Dictionary<UsbBluetoothEndpointType, UsbEndpointBase>();
 
         public int Vid { get; private set; }
@@ -64,8 +57,6 @@ namespace WinBeacon.Stack.Transports.LibUsb
             usbDevice = UsbDevice.OpenUsbDevice(new UsbDeviceFinder(Vid, Pid));
             if (usbDevice == null)
                 throw new WinBeaconException("Failed to open USB device with VID: 0x{0:X4} and PID: 0x{1:X4}", Vid, Pid);
-            foreach (var info in usbDevice.EnumerateBluetoothEndpointInfo())
-                endpointIds[info.Type] = info.Id;
             OpenEndpoints();
         }
 
@@ -106,8 +97,23 @@ namespace WinBeacon.Stack.Transports.LibUsb
 
         #endregion
 
+        private Dictionary<UsbBluetoothEndpointType, byte> GetBluetoothEndpointIds()
+        {
+            var endpointIds = new Dictionary<UsbBluetoothEndpointType, byte>
+                {
+                    { UsbBluetoothEndpointType.Commands, 0x00 },
+                    { UsbBluetoothEndpointType.Events, 0x81 },
+                    { UsbBluetoothEndpointType.AclDataOut, 0x02 },
+                    { UsbBluetoothEndpointType.AclDataIn, 0x82 }
+                };
+            foreach (var info in usbDevice.EnumerateBluetoothEndpointInfo())
+                endpointIds[info.Type] = info.Id;
+            return endpointIds;
+        }
+
         private void OpenEndpoints()
         {
+            var endpointIds = GetBluetoothEndpointIds();
             endpoints[UsbBluetoothEndpointType.Commands] = usbDevice.OpenEndpointWriter((WriteEndpointID)endpointIds[UsbBluetoothEndpointType.Commands]);
             endpoints[UsbBluetoothEndpointType.Events] = usbDevice.OpenEndpointReader((ReadEndpointID)endpointIds[UsbBluetoothEndpointType.Events]);
             endpoints[UsbBluetoothEndpointType.AclDataOut] = usbDevice.OpenEndpointWriter((WriteEndpointID)endpointIds[UsbBluetoothEndpointType.AclDataOut]);
