@@ -51,6 +51,8 @@
     <Compile Include="Extensions\QueueExtensions.cs" />
     <Compile Include="Extensions\UshortExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Stack\Controllers\LeController.cs" />
+    <Compile Include="Stack\Controllers\LibUsbController.cs" />
     <Compile Include="Stack\Hci\Command.cs" />
     <Compile Include="Stack\Hci\Commands\LeSetAdvertisingDataCommand.cs" />
     <Compile Include="Stack\Hci\Commands\LeSetAdvertisingEnableCommand.cs" />
