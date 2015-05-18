@@ -16,7 +16,7 @@
 
 namespace WinBeacon
 {
-    internal static class UShortExtensions
+    internal static class UshortExtensions
     {
         public static byte LoByte(this ushort value)
         {
