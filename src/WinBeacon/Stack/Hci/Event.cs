@@ -44,6 +44,11 @@ namespace WinBeacon.Stack.Hci
             Code = code;
         }
 
+        internal static Event Parse(byte[] data)
+        {
+            return Parse(new Queue<byte>(data));
+        }
+
         internal static Event Parse(Queue<byte> data)
         {
             if (data.Count < 2)
