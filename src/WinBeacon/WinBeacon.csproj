@@ -51,10 +51,15 @@
     <Compile Include="Extensions\QueueExtensions.cs" />
     <Compile Include="Extensions\UShortExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Stack\Hci\Command.cs" />
     <Compile Include="Stack\Hci\DataReceivedEventArgs.cs" />
+    <Compile Include="Stack\Hci\Event.cs" />
     <Compile Include="Stack\Hci\EventCode.cs" />
+    <Compile Include="Stack\Hci\Events\CommandCompleteEvent.cs" />
     <Compile Include="Stack\Hci\Events\LeAdvertisingEvent.cs" />
     <Compile Include="Stack\Hci\Events\LeAdvertisingEventType.cs" />
+    <Compile Include="Stack\Hci\Events\LeMetaEvent.cs" />
+    <Compile Include="Stack\Hci\ICommandParameter.cs" />
     <Compile Include="Stack\Hci\OpcodeGroup.cs" />
     <Compile Include="Stack\Transports\UsbHciEndpointInfo.cs" />
     <Compile Include="Stack\Transports\UsbHciEndpointType.cs" />
