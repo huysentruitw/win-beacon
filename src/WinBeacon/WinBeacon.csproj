@@ -55,7 +55,7 @@
     <Compile Include="Stack\ITransport.cs" />
     <Compile Include="Stack\Hci\DataType.cs" />
     <Compile Include="Stack\Transports\LibUsb\LibUsbTransport.cs" />
-    <Compile Include="Stack\Transports\LibUsb\WinBeaconLibUsbExtensions.cs" />
+    <Compile Include="Extensions\WinBeaconLibUsbExtensions.cs" />
     <Compile Include="WinBeaconException.cs" />
   </ItemGroup>
   <ItemGroup>
