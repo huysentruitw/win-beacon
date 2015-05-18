@@ -2,7 +2,7 @@
 
 ## Overview
 
-WinBeacon is a managed (C#) library with a minimal Bluetooth Stack that is able to detect and act as an iBeacon¹.
+WinBeacon is a managed (C#) library with a minimal Bluetooth LE Stack that is able to detect and act as an iBeaconÂ¹. This stack doesn't support BLE devices, only the detection and transmission of BLE advertisement packets used by beacons.
 
 ## Supported operating systems
 
@@ -19,4 +19,4 @@ This also means that the default Bluetooth stack is no longer used and Windows w
 
 To replace or create a WinUSB driver for the BT4.0 dongle, we advise you to use the [Zadig tool](http://zadig.akeo.ie/).
 
-¹ iBeacon is a trademark of Apple inc.
+Â¹ iBeacon is a trademark of Apple inc.
