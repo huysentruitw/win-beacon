@@ -52,6 +52,12 @@
     <Compile Include="Extensions\UshortExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Stack\Hci\Command.cs" />
+    <Compile Include="Stack\Hci\Commands\LeSetAdvertisingDataCommand.cs" />
+    <Compile Include="Stack\Hci\Commands\LeSetAdvertisingEnableCommand.cs" />
+    <Compile Include="Stack\Hci\Commands\LeSetScanEnableCommand.cs" />
+    <Compile Include="Stack\Hci\Commands\LeSetScanParametersCommand.cs" />
+    <Compile Include="Stack\Hci\Commands\LeWriteHostSupportedCommand.cs" />
+    <Compile Include="Stack\Hci\Commands\ResetCommand.cs" />
     <Compile Include="Stack\Hci\DataReceivedEventArgs.cs" />
     <Compile Include="Stack\Hci\Event.cs" />
     <Compile Include="Stack\Hci\EventCode.cs" />
