@@ -71,6 +71,7 @@
     <Compile Include="Stack\Hci\Parameters\ByteArrayCommandParameter.cs" />
     <Compile Include="Stack\Hci\Parameters\ByteCommandParameter.cs" />
     <Compile Include="Stack\Hci\Parameters\UshortCommandParameter.cs" />
+    <Compile Include="Stack\ILeController.cs" />
     <Compile Include="Stack\LeMetaEventReceivedEventArgs.cs" />
     <Compile Include="Stack\Transports\UsbHciEndpointInfo.cs" />
     <Compile Include="Stack\Transports\UsbHciEndpointType.cs" />
