@@ -61,6 +61,10 @@
     <Compile Include="Stack\Hci\Events\LeMetaEvent.cs" />
     <Compile Include="Stack\Hci\ICommandParameter.cs" />
     <Compile Include="Stack\Hci\OpcodeGroup.cs" />
+    <Compile Include="Stack\Hci\Parameters\BoolCommandParameter.cs" />
+    <Compile Include="Stack\Hci\Parameters\ByteArrayCommandParameter.cs" />
+    <Compile Include="Stack\Hci\Parameters\ByteCommandParameter.cs" />
+    <Compile Include="Stack\Hci\Parameters\UshortCommandParameter.cs" />
     <Compile Include="Stack\Transports\UsbHciEndpointInfo.cs" />
     <Compile Include="Stack\Transports\UsbHciEndpointType.cs" />
     <Compile Include="Stack\ITransport.cs" />
