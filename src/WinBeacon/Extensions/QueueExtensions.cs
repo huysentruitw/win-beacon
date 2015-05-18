@@ -19,7 +19,7 @@ using System.Collections.Generic;
 
 namespace WinBeacon
 {
-    public static class QueueExtensions
+    internal static class QueueExtensions
     {
         public static T[] DequeueAll<T>(this Queue<T> queue)
         {
