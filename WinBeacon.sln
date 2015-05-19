@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConsole", "test\TestConsole\TestConsole.csproj", "{EAD23AAB-4BE4-45CA-B919-166267AE4C84}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinBeacon", "src\WinBeacon\WinBeacon.csproj", "{276A318E-8E7C-424B-BF6D-263E98BBADFD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{F5C4ADE2-B6BF-4A85-877E-2EBCF8DFDA48}"
@@ -30,10 +28,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{EAD23AAB-4BE4-45CA-B919-166267AE4C84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EAD23AAB-4BE4-45CA-B919-166267AE4C84}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EAD23AAB-4BE4-45CA-B919-166267AE4C84}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EAD23AAB-4BE4-45CA-B919-166267AE4C84}.Release|Any CPU.Build.0 = Release|Any CPU
 		{276A318E-8E7C-424B-BF6D-263E98BBADFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{276A318E-8E7C-424B-BF6D-263E98BBADFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{276A318E-8E7C-424B-BF6D-263E98BBADFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -47,7 +41,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{EAD23AAB-4BE4-45CA-B919-166267AE4C84} = {8D7F4EC7-F536-4CA1-A1A3-C9B46757F5E8}
 		{5B839047-8FD5-4DF9-BFDD-FDF4912FF5BE} = {8D7F4EC7-F536-4CA1-A1A3-C9B46757F5E8}
 		{276A318E-8E7C-424B-BF6D-263E98BBADFD} = {67875218-D5C5-4940-B7D2-A104093D4084}
 	EndGlobalSection
