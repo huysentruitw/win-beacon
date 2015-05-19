@@ -17,7 +17,7 @@
 using NUnit.Framework;
 using WinBeacon.Stack;
 
-namespace WinBeacon.Tests.Extensions
+namespace WinBeacon.Tests
 {
     [TestFixture]
     public class UshortExtensionsTests

@@ -44,8 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Extensions\QueueExtensionsTests.cs" />
-    <Compile Include="Extensions\UshortExtensionsTests.cs" />
+    <Compile Include="QueueExtensionsTests.cs" />
+    <Compile Include="UshortExtensionsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
