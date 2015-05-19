@@ -22,7 +22,7 @@ namespace WinBeacon.Stack
     /// <summary>
     /// Queue extension methods.
     /// </summary>
-    public static class QueueExtensions
+    internal static class QueueExtensions
     {
         /// <summary>
         /// Dequeue all items from the queue.

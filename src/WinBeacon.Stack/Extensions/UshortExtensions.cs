@@ -19,7 +19,7 @@ namespace WinBeacon.Stack
     /// <summary>
     /// ushort extension methods.
     /// </summary>
-    public static class UshortExtensions
+    internal static class UshortExtensions
     {
         /// <summary>
         /// Get the least significant byte.
