@@ -17,6 +17,7 @@
 using System;
 using System.Collections.Generic;
 using NUnit.Framework;
+using WinBeacon.Stack;
 
 namespace WinBeacon.Tests.Extensions
 {

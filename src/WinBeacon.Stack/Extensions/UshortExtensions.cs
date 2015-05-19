@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-namespace WinBeacon
+namespace WinBeacon.Stack
 {
     /// <summary>
     /// ushort extension methods.

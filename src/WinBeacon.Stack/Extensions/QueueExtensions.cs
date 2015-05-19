@@ -17,7 +17,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace WinBeacon
+namespace WinBeacon.Stack
 {
     /// <summary>
     /// Queue extension methods.

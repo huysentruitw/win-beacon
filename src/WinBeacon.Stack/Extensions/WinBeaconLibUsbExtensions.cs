@@ -22,7 +22,7 @@ using LibUsbDotNet;
 using LibUsbDotNet.Main;
 using WinBeacon.Stack.Transport;
 
-namespace WinBeacon
+namespace WinBeacon.Stack
 {
     internal static class WinBeaconLibUsbExtensions
     {

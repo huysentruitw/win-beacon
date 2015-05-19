@@ -49,6 +49,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\src\WinBeacon.Stack\WinBeacon.Stack.csproj">
+      <Project>{40be88d6-a9cf-4f91-9ac1-9c0ed796cf3a}</Project>
+      <Name>WinBeacon.Stack</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\WinBeacon\WinBeacon.csproj">
       <Project>{276a318e-8e7c-424b-bf6d-263e98bbadfd}</Project>
       <Name>WinBeacon</Name>

@@ -16,7 +16,7 @@
 
 using System;
 
-namespace WinBeacon
+namespace WinBeacon.Stack
 {
     /// <summary>
     /// WinBeacon specific exception.
