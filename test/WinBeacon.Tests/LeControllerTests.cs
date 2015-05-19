@@ -15,12 +15,14 @@
  */
 
 using System;
+using System.Linq;
 using System.Threading;
 using Moq;
 using NUnit.Framework;
 using WinBeacon.Stack;
 using WinBeacon.Stack.Controllers;
 using WinBeacon.Stack.Hci;
+using WinBeacon.Stack.Hci.Commands;
 
 namespace WinBeacon.Tests
 {
@@ -65,8 +67,13 @@ namespace WinBeacon.Tests
             using (var controller = new LeController(transportMock.Object))
             {
                 controller.Open();
-                Thread.Sleep(100);
+                Thread.Sleep(10);
             }
+            transportMock.Verify(
+                transport => transport.Send(
+                    It.Is<byte[]>(x => x.SequenceEqual(new ResetCommand().ToByteArray())),
+                    It.Is<DataType>(x => x == DataType.Command)),
+                Times.Exactly(1));
             transportMock.Verify(
                 transport => transport.Send(It.IsAny<byte[]>(), It.Is<DataType>(x => x == DataType.Command)),
                 Times.Exactly(3));
