@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExceptionTests.cs" />
     <Compile Include="QueueExtensionsTests.cs" />
     <Compile Include="UshortExtensionsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
