@@ -27,3 +27,4 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyFileVersion("1.0.0.0")]
 
 [assembly: InternalsVisibleTo("WinBeacon.Tests")]
+[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")] // For Moq

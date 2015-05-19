@@ -60,7 +60,8 @@ namespace WinBeacon.Stack.Controllers
         /// </summary>
         public void Open()
         {
-            Close();
+            if (commandExecutionThread != null)
+                return;
             transport.Open();
             transport.DataReceived += transport_DataReceived;
             cancelThread.Reset();
@@ -76,12 +77,11 @@ namespace WinBeacon.Stack.Controllers
         /// </summary>
         public void Close()
         {
-            if (commandExecutionThread != null)
-            {
-                cancelThread.Set();
-                commandExecutionThread.Join();
-                commandExecutionThread = null;
-            }
+            if (commandExecutionThread == null)
+                return;
+            cancelThread.Set();
+            commandExecutionThread.Join();
+            commandExecutionThread = null;
             lock (commandQueue)
                 commandQueue.Clear();
             transport.DataReceived -= transport_DataReceived;
