@@ -22,6 +22,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinBeacon.Tests", "test\WinBeacon.Tests\WinBeacon.Tests.csproj", "{5B839047-8FD5-4DF9-BFDD-FDF4912FF5BE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinBeacon.Stack", "src\WinBeacon.Stack\WinBeacon.Stack.csproj", "{40BE88D6-A9CF-4F91-9AC1-9C0ED796CF3A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +38,10 @@ Global
 		{5B839047-8FD5-4DF9-BFDD-FDF4912FF5BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B839047-8FD5-4DF9-BFDD-FDF4912FF5BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B839047-8FD5-4DF9-BFDD-FDF4912FF5BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40BE88D6-A9CF-4F91-9AC1-9C0ED796CF3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40BE88D6-A9CF-4F91-9AC1-9C0ED796CF3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40BE88D6-A9CF-4F91-9AC1-9C0ED796CF3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40BE88D6-A9CF-4F91-9AC1-9C0ED796CF3A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -43,5 +49,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{5B839047-8FD5-4DF9-BFDD-FDF4912FF5BE} = {8D7F4EC7-F536-4CA1-A1A3-C9B46757F5E8}
 		{276A318E-8E7C-424B-BF6D-263E98BBADFD} = {67875218-D5C5-4940-B7D2-A104093D4084}
+		{40BE88D6-A9CF-4F91-9AC1-9C0ED796CF3A} = {67875218-D5C5-4940-B7D2-A104093D4084}
 	EndGlobalSection
 EndGlobal
