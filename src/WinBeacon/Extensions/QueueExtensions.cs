@@ -19,8 +19,17 @@ using System.Collections.Generic;
 
 namespace WinBeacon
 {
-    internal static class QueueExtensions
+    /// <summary>
+    /// Queue extension methods.
+    /// </summary>
+    public static class QueueExtensions
     {
+        /// <summary>
+        /// Dequeue all items from the queue.
+        /// </summary>
+        /// <typeparam name="T">Item type.</typeparam>
+        /// <param name="queue">The queue.</param>
+        /// <returns>Array of dequeued items.</returns>
         public static T[] DequeueAll<T>(this Queue<T> queue)
         {
             var result = new List<T>();
@@ -29,10 +38,17 @@ namespace WinBeacon
             return result.ToArray();
         }
 
+        /// <summary>
+        /// Dequeue the specified number of items.
+        /// </summary>
+        /// <typeparam name="T">Item type.</typeparam>
+        /// <param name="queue">The queue.</param>
+        /// <param name="count">Number of items to dequeue.</param>
+        /// <returns>Array of dequeued items.</returns>
         public static T[] Dequeue<T>(this Queue<T> queue, int count)
         {
             var result = new List<T>();
-            for (int i = 0; i < Math.Min(count, queue.Count); i++)
+            for (int i = 0; i < count; i++)
                 result.Add(queue.Dequeue());
             return result.ToArray();
         }
