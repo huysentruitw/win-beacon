@@ -25,8 +25,12 @@ namespace WinBeacon.Stack.Transports.LibUsb
     /// <summary>
     /// Interface for wrapping LibUsbDotNet.UsbDevice.
     /// </summary>
-    internal interface ILibUsbDevice : IDisposable
+    internal interface ILibUsbDevice
     {
+        int Vid { get; }
+        int Pid { get; }
+        void Open();
+        void Close();
         ReadOnlyCollection<UsbConfigInfo> Configs { get; }
         UsbEndpointReader OpenEndpointReader(ReadEndpointID readEndpointID);
         UsbEndpointWriter OpenEndpointWriter(WriteEndpointID writeEndpointID);

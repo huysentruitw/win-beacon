@@ -31,13 +31,11 @@ namespace WinBeacon.Stack.Transports.LibUsb
         private ILibUsbDevice usbDevice;
         private Dictionary<UsbBluetoothEndpointType, UsbEndpointBase> endpoints = new Dictionary<UsbBluetoothEndpointType, UsbEndpointBase>();
 
-        public int Vid { get; private set; }
-        public int Pid { get; private set; }
-
-        public LibUsbTransport(int vid, int pid)
+        internal LibUsbTransport(ILibUsbDevice usbDevice)
         {
-            Vid = vid;
-            Pid = pid;
+            if (usbDevice == null)
+                throw new ArgumentNullException("usbDevice");
+            this.usbDevice = usbDevice;
         }
 
         ~LibUsbTransport()
@@ -54,25 +52,14 @@ namespace WinBeacon.Stack.Transports.LibUsb
 
         public void Open()
         {
-            usbDevice = new LibUsbDevice(Vid, Pid);
-            if (usbDevice == null)
-                throw new WinBeaconException("Failed to open USB device with VID: 0x{0:X4} and PID: 0x{1:X4}", Vid, Pid);
-            Open(usbDevice);
-        }
-
-        internal void Open(ILibUsbDevice usbDevice)
-        {
-            this.usbDevice = usbDevice;
+            usbDevice.Open();
             OpenEndpoints();
         }
 
         public void Close()
         {
             CloseEndpoints();
-            if (usbDevice == null)
-                return;
-            usbDevice.Dispose();
-            usbDevice = null;
+            usbDevice.Close();
         }
 
         public void Send(byte[] data, DataType dataType)
@@ -102,6 +89,16 @@ namespace WinBeacon.Stack.Transports.LibUsb
         }
 
         #endregion
+
+        public int Vid
+        {
+            get { return usbDevice.Vid; }
+        }
+
+        public int Pid
+        {
+            get { return usbDevice.Pid; }
+        }
 
         private Dictionary<UsbBluetoothEndpointType, byte> GetBluetoothEndpointIds()
         {

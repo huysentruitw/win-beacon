@@ -29,21 +29,23 @@ namespace WinBeacon.Stack.Transports.LibUsb
     {
         private UsbDevice usbDevice;
 
+        public int Vid { get; private set; }
+        public int Pid { get; private set; }
+
         public LibUsbDevice(int vid, int pid)
         {
-            usbDevice = UsbDevice.OpenUsbDevice(new UsbDeviceFinder(vid, pid));
+            Vid = vid;
+            Pid = pid;
         }
 
-        ~LibUsbDevice()
+        public void Open()
         {
-            Dispose();
+            usbDevice = UsbDevice.OpenUsbDevice(new UsbDeviceFinder(Vid, Pid));
         }
 
-        public void Dispose()
+        public void Close()
         {
-            if (usbDevice != null)
-                usbDevice.Close();
-            usbDevice = null;
+            usbDevice.Close();
         }
 
         public ReadOnlyCollection<UsbConfigInfo> Configs
