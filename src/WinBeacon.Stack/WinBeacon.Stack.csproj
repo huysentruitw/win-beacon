@@ -70,9 +70,11 @@
     <Compile Include="Hci\Parameters\ByteArrayCommandParameter.cs" />
     <Compile Include="Hci\Parameters\ByteCommandParameter.cs" />
     <Compile Include="Hci\Parameters\UshortCommandParameter.cs" />
+    <Compile Include="Transports\LibUsb\ILibUsbDevice.cs" />
     <Compile Include="ILeController.cs" />
     <Compile Include="ITransport.cs" />
     <Compile Include="LeMetaEventReceivedEventArgs.cs" />
+    <Compile Include="Transports\LibUsb\LibUsbDevice.cs" />
     <Compile Include="Transports\LibUsb\LibUsbTransport.cs" />
     <Compile Include="Transports\UsbHciEndpointInfo.cs" />
     <Compile Include="Transports\UsbHciEndpointType.cs" />
@@ -81,7 +83,7 @@
   <ItemGroup>
     <Compile Include="Extensions\QueueExtensions.cs" />
     <Compile Include="Extensions\UshortExtensions.cs" />
-    <Compile Include="Extensions\WinBeaconLibUsbExtensions.cs" />
+    <Compile Include="Extensions\LibUsbDeviceExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

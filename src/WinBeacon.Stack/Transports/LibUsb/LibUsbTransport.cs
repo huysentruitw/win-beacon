@@ -28,7 +28,7 @@ namespace WinBeacon.Stack.Transports.LibUsb
     {
         private static readonly TimeSpan writeTimeout = TimeSpan.FromSeconds(5);
 
-        private UsbDevice usbDevice;
+        private ILibUsbDevice usbDevice;
         private Dictionary<UsbBluetoothEndpointType, UsbEndpointBase> endpoints = new Dictionary<UsbBluetoothEndpointType, UsbEndpointBase>();
 
         public int Vid { get; private set; }
@@ -54,9 +54,15 @@ namespace WinBeacon.Stack.Transports.LibUsb
 
         public void Open()
         {
-            usbDevice = UsbDevice.OpenUsbDevice(new UsbDeviceFinder(Vid, Pid));
+            usbDevice = new LibUsbDevice(Vid, Pid);
             if (usbDevice == null)
                 throw new WinBeaconException("Failed to open USB device with VID: 0x{0:X4} and PID: 0x{1:X4}", Vid, Pid);
+            Open(usbDevice);
+        }
+
+        internal void Open(ILibUsbDevice usbDevice)
+        {
+            this.usbDevice = usbDevice;
             OpenEndpoints();
         }
 
@@ -65,7 +71,7 @@ namespace WinBeacon.Stack.Transports.LibUsb
             CloseEndpoints();
             if (usbDevice == null)
                 return;
-            usbDevice.Close();
+            usbDevice.Dispose();
             usbDevice = null;
         }
 

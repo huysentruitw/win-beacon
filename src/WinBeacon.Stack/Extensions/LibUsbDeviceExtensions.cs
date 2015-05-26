@@ -21,12 +21,13 @@ using System.Linq;
 using LibUsbDotNet;
 using LibUsbDotNet.Main;
 using WinBeacon.Stack.Transport;
+using WinBeacon.Stack.Transports.LibUsb;
 
 namespace WinBeacon.Stack
 {
     internal static class WinBeaconLibUsbExtensions
     {
-        public static IEnumerable<UsbBluetoothEndpointInfo> EnumerateBluetoothEndpointInfo(this UsbDevice usbDevice)
+        public static IEnumerable<UsbBluetoothEndpointInfo> EnumerateBluetoothEndpointInfo(this ILibUsbDevice usbDevice)
         {
             var config0 = usbDevice.Configs.FirstOrDefault();
             if (config0 == null)
