@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandTests.cs" />
+    <Compile Include="EventTests.cs" />
     <Compile Include="ExceptionTests.cs" />
     <Compile Include="LeControllerTests.cs" />
     <Compile Include="LibUsbLeControllerTests.cs" />
