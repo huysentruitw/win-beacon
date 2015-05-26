@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandTests.cs" />
     <Compile Include="ExceptionTests.cs" />
     <Compile Include="LeControllerTests.cs" />
     <Compile Include="LibUsbLeControllerTests.cs" />
