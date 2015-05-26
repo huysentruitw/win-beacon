@@ -52,6 +52,7 @@
     <Compile Include="ExceptionTests.cs" />
     <Compile Include="LeControllerTests.cs" />
     <Compile Include="LibUsbLeControllerTests.cs" />
+    <Compile Include="ParameterTests.cs" />
     <Compile Include="QueueExtensionsTests.cs" />
     <Compile Include="UshortExtensionsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
