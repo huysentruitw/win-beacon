@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 
-using System;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using LibUsbDotNet;
 using LibUsbDotNet.Info;
 using LibUsbDotNet.Main;
@@ -53,7 +52,7 @@ namespace WinBeacon.Stack.Transports.LibUsb
             usbDevice = null;
         }
 
-        public ReadOnlyCollection<UsbConfigInfo> Configs
+        public IEnumerable<UsbConfigInfo> Configs
         {
             get { return usbDevice.Configs; }
         }

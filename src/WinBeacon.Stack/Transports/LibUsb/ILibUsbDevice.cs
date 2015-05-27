@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 
-using System;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using LibUsbDotNet;
 using LibUsbDotNet.Info;
 using LibUsbDotNet.Main;
@@ -31,7 +30,7 @@ namespace WinBeacon.Stack.Transports.LibUsb
         int Pid { get; }
         void Open();
         void Close();
-        ReadOnlyCollection<UsbConfigInfo> Configs { get; }
+        IEnumerable<UsbConfigInfo> Configs { get; }
         UsbEndpointReader OpenEndpointReader(ReadEndpointID readEndpointID);
         UsbEndpointWriter OpenEndpointWriter(WriteEndpointID writeEndpointID);
         bool ControlTransfer(ref UsbSetupPacket setupPacket, object buffer, int bufferLength, out int lengthTransferred);

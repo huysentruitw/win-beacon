@@ -32,6 +32,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LibUsbDotNet, Version=2.2.8.104, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\LibUsbDotNet.2.2.8\lib\LibUsbDotNet.dll</HintPath>
+    </Reference>
     <Reference Include="Moq">
       <HintPath>..\..\packages\Moq.4.2.1502.0911\lib\net40\Moq.dll</HintPath>
     </Reference>
@@ -52,6 +56,7 @@
     <Compile Include="ExceptionTests.cs" />
     <Compile Include="LeControllerTests.cs" />
     <Compile Include="LibUsbLeControllerTests.cs" />
+    <Compile Include="LibUsbTransportTests.cs" />
     <Compile Include="ParameterTests.cs" />
     <Compile Include="QueueExtensionsTests.cs" />
     <Compile Include="UshortExtensionsTests.cs" />
