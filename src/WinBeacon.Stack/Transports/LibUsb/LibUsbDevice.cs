@@ -40,12 +40,17 @@ namespace WinBeacon.Stack.Transports.LibUsb
 
         public void Open()
         {
+            if (usbDevice != null)
+                return;
             usbDevice = UsbDevice.OpenUsbDevice(new UsbDeviceFinder(Vid, Pid));
         }
 
         public void Close()
         {
+            if (usbDevice == null)
+                return;
             usbDevice.Close();
+            usbDevice = null;
         }
 
         public ReadOnlyCollection<UsbConfigInfo> Configs
