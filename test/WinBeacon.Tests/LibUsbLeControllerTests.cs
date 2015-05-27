@@ -29,7 +29,7 @@ namespace WinBeacon.Tests
         /// <summary>
         /// This is a live test that needs some pre-requisites:
         ///  * A BLE compatible dongle with WinUSB driver
-        ///  * The correct vid & pid combination in the consts above
+        ///  * The correct vid and pid combination in the consts above
         ///  * A beacon that broadcasts at minimum 2Hz rate (iPad users can use the BLEBeacon app to advertise as a beacon) 
         /// </summary>
         [Test]
