@@ -48,7 +48,15 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Beacon.cs" />
+    <Compile Include="BeaconHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WinBeacon.Stack\WinBeacon.Stack.csproj">
+      <Project>{40be88d6-a9cf-4f91-9ac1-9c0ed796cf3a}</Project>
+      <Name>WinBeacon.Stack</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
