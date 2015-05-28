@@ -19,7 +19,7 @@ namespace System
     /// <summary>
     /// IComparable extension methods.
     /// </summary>
-    public static class ComparableExtensionMethods
+    public static class ComparableExtensions
     {
         /// <summary>
         /// Same as CompareTo but returns null instead of 0 if both items are equal.

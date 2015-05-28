@@ -24,7 +24,7 @@ namespace WinBeacon
     /// <summary>
     /// Beacon extension methods.
     /// </summary>
-    public static class BeaconExtensionMethods
+    public static class BeaconExtensions
     {
         /// <summary>
         /// Gets the calculated range in meters.
