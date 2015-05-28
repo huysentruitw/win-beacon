@@ -50,6 +50,7 @@
     </Compile>
     <Compile Include="Beacon.cs" />
     <Compile Include="BeaconHelpers.cs" />
+    <Compile Include="Extensions\ComparableExtensionMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -88,17 +88,12 @@ namespace WinBeacon
         /// <returns>A value that indicates the lexical relationship between the two comparands.</returns>
         public int CompareTo(object obj)
         {
-            if (obj == null)
-                throw new ArgumentNullException("obj");
             var other = obj as Beacon;
             if (other == null)
                 throw new ArgumentException("Must be of type Beacon", "obj");
-            var test = new Func<int, int?>(v => v != 0 ? (int?)v : null);
-            return (int?)null
-                ?? test(string.Compare(Uuid, other.Uuid))
-                ?? test(Major - other.Major)
-                ?? test(Minor - other.Minor)
-                ?? 0;
+            return Uuid.NullableCompareTo(other.Uuid)
+                ?? Major.NullableCompareTo(other.Major)
+                ?? Minor.CompareTo(other.Minor);
         }
     }
 }
