@@ -1,5 +1,7 @@
 # WinBeacon
 
+![Build status](https://ci.appveyor.com/api/projects/status/32r7s2skrgm9ubva?svg=true)
+
 ## Overview
 
 WinBeacon is a managed (C#) library with a minimal Bluetooth LE Stack that is able to detect and act as an iBeacon¹. This stack doesn't support BLE devices, only the detection and transmission of BLE advertisement packets used by beacons.
