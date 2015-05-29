@@ -55,7 +55,8 @@ namespace WinBeacon.Tests
         public void QueueExtensions_Enqueue()
         {
             var input = new byte[] { 0x9A, 0xBC, 0xDE, 0xF0 };
-            var queue = new Queue<byte>(input);
+            var queue = new Queue<byte>();
+            queue.Enqueue(input);
             Assert.AreEqual(input.Length, queue.Count);
             Assert.AreEqual(input, queue.DequeueAll());
         }
