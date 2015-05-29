@@ -52,5 +52,17 @@ namespace WinBeacon.Stack
                 result.Add(queue.Dequeue());
             return result.ToArray();
         }
+
+        /// <summary>
+        /// Enqueue an array of items.
+        /// </summary>
+        /// <typeparam name="T">Item type.</typeparam>
+        /// <param name="queue">The queue.</param>
+        /// <param name="items">The items.</param>
+        public static void Enqueue<T>(this Queue<T> queue, IEnumerable<T> items)
+        {
+            foreach (T item in items)
+                queue.Enqueue(item);
+        }
     }
 }
