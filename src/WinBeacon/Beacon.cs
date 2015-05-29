@@ -46,7 +46,7 @@ namespace WinBeacon
         /// <summary>
         /// RSSI power of the beacon in dB.
         /// </summary>
-        public int Rssi { get; private set; }
+        public int Rssi { get; internal set; }
         /// <summary>
         /// Calibrated TX power of the beacon in dB.
         /// </summary>

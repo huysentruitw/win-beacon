@@ -51,6 +51,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BeaconExtensionsTests.cs" />
+    <Compile Include="BeaconTests.cs" />
     <Compile Include="CommandTests.cs" />
     <Compile Include="EventTests.cs" />
     <Compile Include="ExceptionTests.cs" />
