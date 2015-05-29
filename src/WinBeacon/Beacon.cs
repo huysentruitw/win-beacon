@@ -116,7 +116,7 @@ namespace WinBeacon
         /// <returns>The beacon or null in case of failure.</returns>
         internal static Beacon Parse(LeAdvertisingEvent e)
         {
-            if (e.EventType == LeAdvertisingEventType.ScanRsp)
+            if (e.EventType != LeAdvertisingEventType.ScanRsp)
                 throw new ArgumentException("Not a Scan Response event", "e");
             if (e.Payload.Length < 9)
                 return null;
