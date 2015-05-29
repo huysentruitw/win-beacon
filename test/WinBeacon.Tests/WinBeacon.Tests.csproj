@@ -54,6 +54,7 @@
     <Compile Include="BeaconExtensionsTests.cs" />
     <Compile Include="BeaconTests.cs" />
     <Compile Include="CommandTests.cs" />
+    <Compile Include="ComparableExtensionsTests.cs" />
     <Compile Include="EventTests.cs" />
     <Compile Include="ExceptionTests.cs" />
     <Compile Include="LeControllerTests.cs" />
