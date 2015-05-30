@@ -154,8 +154,8 @@ namespace WinBeacon
             {
                 0x02,   // ad1Length
                 0x01,   // ad1Type
-                0x04,   // flags
-                0x1B,   // ad2Length
+                0x1A,   // flags
+                0x1A,   // ad2Length
                 0xFF,   // ad2Type
                 (byte)(CompanyId >> 8),
                 (byte)(CompanyId & 0xFF),
