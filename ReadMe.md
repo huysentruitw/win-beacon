@@ -29,6 +29,10 @@ This also means that the default Bluetooth stack is no longer used and Windows w
 
 To replace or create a WinUSB driver for the BT4.0 dongle, we advise you to use the [Zadig tool](http://zadig.akeo.ie/).
 
+## Get it on NuGet
+
+    Install-Package WinBeacon
+
 ## Usage
 
 ### Detecting beacons
