@@ -38,6 +38,8 @@ namespace WinBeacon
         {
             controller = new LibUsbLeController(usbVid, usbPid);
             controller.LeMetaEventReceived += controller_LeMetaEventReceived;
+            controller.Open();
+            controller.EnableScanning();
         }
 
         /// <summary>

@@ -105,19 +105,19 @@ namespace WinBeacon
         /// <returns>String representation of the beacon data.</returns>
         public override string ToString()
         {
-            return string.Format("UUID: {0}, Address: {1}, Major: {2}, Minor: {3}, RSSI: {4}, TxPower: {5}dB, CompanyId: 0x{6:X}, Distance: {7}m",
+            return string.Format("UUID: {0}, Address: {1}, Major: {2}, Minor: {3}, RSSI: {4}, TxPower: {5}dB, CompanyId: 0x{6:X}, Distance: {7:0.00}m",
                 Uuid, BitConverter.ToString(Address), Major, Minor, Rssi, CalibratedTxPower, CompanyId, this.GetRange());
         }
 
         /// <summary>
-        /// Parse Scan Response event to a beacon instance.
+        /// Parse low energy advertising event to a beacon instance.
         /// </summary>
         /// <param name="e">The event.</param>
         /// <returns>The beacon or null in case of failure.</returns>
         internal static Beacon Parse(LeAdvertisingEvent e)
         {
-            if (e.EventType != LeAdvertisingEventType.ScanRsp)
-                throw new ArgumentException("Not a Scan Response event", "e");
+            if (e.EventType == LeAdvertisingEventType.ScanRsp)
+                return null;
             if (e.Payload.Length < 9)
                 return null;
             var payload = new Queue<byte>(e.Payload);
