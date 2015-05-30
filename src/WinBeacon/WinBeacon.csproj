@@ -49,6 +49,7 @@
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Beacon.cs" />
+    <Compile Include="BeaconDetectedEventArgs.cs" />
     <Compile Include="Extensions\BeaconExtensions.cs" />
     <Compile Include="Extensions\ComparableExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
