@@ -1,6 +1,6 @@
 # WinBeacon
 
-[![Build status](https://ci.appveyor.com/api/projects/status/qjr2y51nq77lihny?svg=true)](https://ci.appveyor.com/project/huysentruitw/win-beacon/branch/master)
+[![Build status](https://ci.appveyor.com/api/projects/status/qjr2y51nq77lihny/branch/master?svg=true)](https://ci.appveyor.com/project/huysentruitw/win-beacon/branch/master)
 
 ## Overview
 
