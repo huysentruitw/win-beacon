@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio Express 2013 for Windows Desktop
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinBeacon", "src\WinBeacon\WinBeacon.csproj", "{276A318E-8E7C-424B-BF6D-263E98BBADFD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{F5C4ADE2-B6BF-4A85-877E-2EBCF8DFDA48}"
@@ -24,6 +26,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinBeacon.Tests", "test\Win
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinBeacon.Stack", "src\WinBeacon.Stack\WinBeacon.Stack.csproj", "{40BE88D6-A9CF-4F91-9AC1-9C0ED796CF3A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleConsole", "samples\SampleConsole\SampleConsole.csproj", "{8EDF3357-CD44-4DAA-B1BA-C22399CEA790}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{E8343CD3-E188-4C61-B9E4-CFEFA08AF50C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,13 +48,18 @@ Global
 		{40BE88D6-A9CF-4F91-9AC1-9C0ED796CF3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{40BE88D6-A9CF-4F91-9AC1-9C0ED796CF3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{40BE88D6-A9CF-4F91-9AC1-9C0ED796CF3A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8EDF3357-CD44-4DAA-B1BA-C22399CEA790}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EDF3357-CD44-4DAA-B1BA-C22399CEA790}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EDF3357-CD44-4DAA-B1BA-C22399CEA790}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EDF3357-CD44-4DAA-B1BA-C22399CEA790}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{5B839047-8FD5-4DF9-BFDD-FDF4912FF5BE} = {8D7F4EC7-F536-4CA1-A1A3-C9B46757F5E8}
 		{276A318E-8E7C-424B-BF6D-263E98BBADFD} = {67875218-D5C5-4940-B7D2-A104093D4084}
+		{5B839047-8FD5-4DF9-BFDD-FDF4912FF5BE} = {8D7F4EC7-F536-4CA1-A1A3-C9B46757F5E8}
 		{40BE88D6-A9CF-4F91-9AC1-9C0ED796CF3A} = {67875218-D5C5-4940-B7D2-A104093D4084}
+		{8EDF3357-CD44-4DAA-B1BA-C22399CEA790} = {E8343CD3-E188-4C61-B9E4-CFEFA08AF50C}
 	EndGlobalSection
 EndGlobal
