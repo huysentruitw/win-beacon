@@ -42,6 +42,8 @@ namespace WinBeacon.Stack.Transports.LibUsb
             if (usbDevice != null)
                 return;
             usbDevice = UsbDevice.OpenUsbDevice(new UsbDeviceFinder(Vid, Pid));
+            if (usbDevice == null)
+                throw new WinBeaconException("USB device not found, check VID & PID");
         }
 
         public void Close()
