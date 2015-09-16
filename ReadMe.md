@@ -11,8 +11,9 @@ WinBeacon is a managed (C#) library with a minimal Bluetooth LE Stack that is ab
 * Windows XP (not tested, but it should work)
 * Windows 7
 * Windows 8
+* Windows 10*
 
-For Windows 10, you should use [BluetoothLEAdvertisementWatcher](https://msdn.microsoft.com/en-us/library/windows.devices.bluetooth.advertisement.bluetoothleadvertisementwatcher.aspx) instead of this library.
+\* For Windows 10, you should be able to use [BluetoothLEAdvertisementWatcher](https://msdn.microsoft.com/en-us/library/windows.devices.bluetooth.advertisement.bluetoothleadvertisementwatcher.aspx) instead of this library.
 
 ## Supported BT4.0 LE dongles
 
