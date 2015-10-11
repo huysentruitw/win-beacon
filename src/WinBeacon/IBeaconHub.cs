@@ -37,6 +37,6 @@ namespace WinBeacon
         /// <summary>
         /// Event fired when a beacon is detected. This happens when the dongle receives the beacon's advertising packet.
         /// </summary>
-        event EventHandler<BeaconDetectedEventArgs> BeaconDetected;
+        event EventHandler<BeaconEventArgs> BeaconDetected;
     }
 }
