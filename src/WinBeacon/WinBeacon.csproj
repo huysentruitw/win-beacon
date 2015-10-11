@@ -53,6 +53,7 @@
     <Compile Include="BeaconHub.cs" />
     <Compile Include="Extensions\BeaconExtensions.cs" />
     <Compile Include="Extensions\ComparableExtensions.cs" />
+    <Compile Include="IBeaconHub.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
