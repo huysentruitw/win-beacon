@@ -7,7 +7,7 @@ namespace SampleConsole
     {
         static void Main(string[] args)
         {
-            using (var hub = new BeaconHub(0x050D, 0x065A))
+            using (var hub = new BeaconHub(0x0A5C, 0x21E8))
             {
                 hub.BeaconDetected += (sender, e) => Console.WriteLine(e.Beacon.ToString());
                 

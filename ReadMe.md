@@ -11,16 +11,18 @@ WinBeacon is a managed (C#) library with a minimal Bluetooth LE Stack that is ab
 * Windows XP (not tested, but it should work)
 * Windows 7
 * Windows 8
+* Windows 10*
 
-For Windows 10, you should use [BluetoothLEAdvertisementWatcher](https://msdn.microsoft.com/en-us/library/windows.devices.bluetooth.advertisement.bluetoothleadvertisementwatcher.aspx) instead of this library.
+\* For Windows 10, you should be able to use [BluetoothLEAdvertisementWatcher](https://msdn.microsoft.com/en-us/library/windows.devices.bluetooth.advertisement.bluetoothleadvertisementwatcher.aspx) instead of this library.
 
 ## Supported BT4.0 LE dongles
 
 | Manufacturer | Product | Chipset | VID / PID | Compatible |
 | ------------ |:------- |:------- |:--------- |:---------- |
 | Belkin | Mini Bluetooth 4.0 Adapter Class 2.10M | BCM20702A0 | VID_050D PID_065A | Yes |
+| Pluggable | USB Bluetooth 4.0 Low Energy Micro Adapter | BCM20702A0 | VID_0A5C PID_21E8 | Yes |
 
-Small list for the moment as I could only test with the dongle I had. If anyone can test with other BT4.0 dongle types, please let me know how it works out or send us a pull request.
+If anyone can test with other BT4.0 dongle types, please let me know how it works out or send us a pull request.
 
 ## Installation 
 
