@@ -25,7 +25,7 @@ namespace WinBeacon
     /// <summary>
     /// Hub for detecting beacons and advertise as a beacon.
     /// </summary>
-    public class BeaconHub : IDisposable
+    public class BeaconHub : IBeaconHub
     {
         private ILeController controller;
 
@@ -89,7 +89,7 @@ namespace WinBeacon
         /// <summary>
         /// Event fired when a beacon is detected. This happens when the dongle receives the beacon's advertising packet.
         /// </summary>
-        public EventHandler<BeaconDetectedEventArgs> BeaconDetected;
+        public event EventHandler<BeaconDetectedEventArgs> BeaconDetected;
         private void OnBeaconDetected(Beacon beacon)
         {
             if (BeaconDetected != null)
