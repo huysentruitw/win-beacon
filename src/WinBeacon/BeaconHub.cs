@@ -17,7 +17,6 @@
 using System;
 using WinBeacon.Stack;
 using WinBeacon.Stack.Controllers;
-using WinBeacon.Stack.Hci;
 using WinBeacon.Stack.Hci.Events;
 
 namespace WinBeacon
@@ -89,11 +88,11 @@ namespace WinBeacon
         /// <summary>
         /// Event fired when a beacon is detected. This happens when the dongle receives the beacon's advertising packet.
         /// </summary>
-        public event EventHandler<BeaconDetectedEventArgs> BeaconDetected;
+        public event EventHandler<BeaconEventArgs> BeaconDetected;
         private void OnBeaconDetected(Beacon beacon)
         {
             if (BeaconDetected != null)
-                BeaconDetected(this, new BeaconDetectedEventArgs(beacon));
+                BeaconDetected(this, new BeaconEventArgs(beacon));
         }
 
         private void controller_LeMetaEventReceived(object sender, LeMetaEventReceivedEventArgs e)

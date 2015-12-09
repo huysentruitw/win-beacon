@@ -19,16 +19,16 @@ using System;
 namespace WinBeacon
 {
     /// <summary>
-    /// Event arguments for the BeaconDetected event.
+    /// Event arguments for Beacon events.
     /// </summary>
-    public class BeaconDetectedEventArgs : EventArgs
+    public class BeaconEventArgs : EventArgs
     {
         /// <summary>
         /// Gets the detected beacon.
         /// </summary>
         public Beacon Beacon { get; private set; }
 
-        internal BeaconDetectedEventArgs(Beacon beacon)
+        internal BeaconEventArgs(Beacon beacon)
         {
             Beacon = beacon;
         }
