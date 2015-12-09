@@ -17,7 +17,6 @@
 using System;
 using WinBeacon.Stack;
 using WinBeacon.Stack.Controllers;
-using WinBeacon.Stack.Hci;
 using WinBeacon.Stack.Hci.Events;
 
 namespace WinBeacon
