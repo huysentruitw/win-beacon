@@ -51,6 +51,7 @@
     <Compile Include="Controllers\LibUsbController.cs" />
     <Compile Include="DeviceAddressReceivedEventArgs.cs" />
     <Compile Include="Hci\Command.cs" />
+    <Compile Include="Hci\Commands\LeReadHostSupportedCommand.cs" />
     <Compile Include="Hci\Commands\LeSetAdvertisingDataCommand.cs" />
     <Compile Include="Hci\Commands\LeSetAdvertisingEnableCommand.cs" />
     <Compile Include="Hci\Commands\LeSetScanEnableCommand.cs" />

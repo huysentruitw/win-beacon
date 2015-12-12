@@ -149,6 +149,13 @@ namespace WinBeacon.Tests
             Assert.AreEqual(new byte[] { 0x01, 0x10, 0x00 }, command.ToByteArray());
         }
 
+        [Test]
+        public void Command_LeReadHostSupportedCommand()
+        {
+            var command = new LeReadHostSupportedCommand();
+            Assert.AreEqual(new byte[] { 0x6C, 0x0C, 0x00 }, command.ToByteArray());
+        }
+
         #region Helpers
 
         private class TestParameter : ICommandParameter
