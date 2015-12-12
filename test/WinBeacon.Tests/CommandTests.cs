@@ -156,6 +156,20 @@ namespace WinBeacon.Tests
             Assert.AreEqual(new byte[] { 0x6C, 0x0C, 0x00 }, command.ToByteArray());
         }
 
+        [Test]
+        public void Command_LeSetEventMaskCommand()
+        {
+            var command = new LeSetEventMaskCommand(new byte[] { 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88 });
+            Assert.AreEqual(new byte[] { 0x01, 0x20, 0x08, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88 }, command.ToByteArray());
+        }
+
+        [Test]
+        public void Command_SetEventMaskCommand()
+        {
+            var command = new SetEventMaskCommand(new byte[] { 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88 });
+            Assert.AreEqual(new byte[] { 0x01, 0x0C, 0x08, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88 }, command.ToByteArray());
+        }
+
         #region Helpers
 
         private class TestParameter : ICommandParameter

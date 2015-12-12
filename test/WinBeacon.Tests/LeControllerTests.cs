@@ -76,7 +76,7 @@ namespace WinBeacon.Tests
                 Times.Exactly(1));
             transportMock.Verify(
                 transport => transport.Send(It.IsAny<byte[]>(), It.Is<DataType>(x => x == DataType.Command)),
-                Times.Exactly(4));
+                Times.Exactly(6));
         }
 
         #region Helpers
