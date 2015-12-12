@@ -45,7 +45,7 @@ namespace WinBeacon.Tests
         {
             Command callbackCommand = null;
             var command = new Command(OpcodeGroup.LeController, 0x1234);
-            command.CommandCompleteCallback = cmd => callbackCommand = cmd;
+            command.CommandCompleteCallback = (cmd, evt) => callbackCommand = cmd;
             Assert.IsNull(callbackCommand, "Callback called too early");
             command.OnCommandComplete(new CommandCompleteEvent());
             Assert.AreEqual(command, callbackCommand, "Command from callback differs");
@@ -133,6 +133,20 @@ namespace WinBeacon.Tests
         {
             var command = new ResetCommand();
             Assert.AreEqual(new byte[] { 0x03, 0x0C, 0x00 }, command.ToByteArray());
+        }
+
+        [Test]
+        public void Command_ReadBdAddrCommand()
+        {
+            var command = new ReadBdAddrCommand();
+            Assert.AreEqual(new byte[] { 0x09, 0x10, 0x00 }, command.ToByteArray());
+        }
+
+        [Test]
+        public void Command_ReadLocalVersionCommand()
+        {
+            var command = new ReadLocalVersionCommand();
+            Assert.AreEqual(new byte[] { 0x01, 0x10, 0x00 }, command.ToByteArray());
         }
 
         #region Helpers

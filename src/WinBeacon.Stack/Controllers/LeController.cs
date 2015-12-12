@@ -16,6 +16,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using WinBeacon.Stack.Hci;
 using WinBeacon.Stack.Hci.Commands;
@@ -70,6 +71,16 @@ namespace WinBeacon.Stack.Controllers
             SendCommand(new ResetCommand());
             SendCommand(new LeWriteHostSupportedCommand(true, false));
             SendCommand(new LeSetScanParametersCommand(true, 10000, 10000, false, false));
+            SendCommand(new ReadBdAddrCommand()
+            {
+                CommandCompleteCallback = (cmd, evt) =>
+                {
+                    if (evt.ResultData.Length != 6)
+                        return;
+                    if (DeviceAddressReceived != null)
+                        DeviceAddressReceived(this, new DeviceAddressReceivedEventArgs(evt.ResultData.Reverse().ToArray()));
+                }
+            });
         }
 
         /// <summary>
@@ -126,6 +137,11 @@ namespace WinBeacon.Stack.Controllers
         /// Fired for each received Low Energy meta event.
         /// </summary>
         public event EventHandler<LeMetaEventReceivedEventArgs> LeMetaEventReceived;
+
+        /// <summary>
+        /// Fired when the device address of this Bluetooth device was received.
+        /// </summary>
+        public event EventHandler<DeviceAddressReceivedEventArgs> DeviceAddressReceived;
 
         private void transport_DataReceived(object sender, Hci.DataReceivedEventArgs e)
         {

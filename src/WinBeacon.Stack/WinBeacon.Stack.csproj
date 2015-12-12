@@ -49,12 +49,14 @@
     </Compile>
     <Compile Include="Controllers\LeController.cs" />
     <Compile Include="Controllers\LibUsbController.cs" />
+    <Compile Include="DeviceAddressReceivedEventArgs.cs" />
     <Compile Include="Hci\Command.cs" />
     <Compile Include="Hci\Commands\LeSetAdvertisingDataCommand.cs" />
     <Compile Include="Hci\Commands\LeSetAdvertisingEnableCommand.cs" />
     <Compile Include="Hci\Commands\LeSetScanEnableCommand.cs" />
     <Compile Include="Hci\Commands\LeSetScanParametersCommand.cs" />
     <Compile Include="Hci\Commands\LeWriteHostSupportedCommand.cs" />
+    <Compile Include="Hci\Commands\ReadBdAddrCommand.cs" />
     <Compile Include="Hci\Commands\ResetCommand.cs" />
     <Compile Include="Hci\DataReceivedEventArgs.cs" />
     <Compile Include="Hci\DataType.cs" />
