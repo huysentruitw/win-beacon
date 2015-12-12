@@ -14,18 +14,14 @@
  * limitations under the License.
  */
 
-using WinBeacon.Stack.Hci.Opcodes;
-using WinBeacon.Stack.Hci.Parameters;
-
-namespace WinBeacon.Stack.Hci.Commands
+namespace WinBeacon.Stack.Hci.Opcodes
 {
-    internal class LeSetScanEnableCommand : Command
+    internal enum LeControllerOpcode : ushort
     {
-        public LeSetScanEnableCommand(bool enable, bool filterDuplicates)
-            : base(OpcodeGroup.LeController, (int)LeControllerOpcode.SetScanEnable)
-        {
-            Parameters.Add(new BoolCommandParameter(enable));
-            Parameters.Add(new BoolCommandParameter(filterDuplicates));
-        }
+        SetEventMask = 0x0001,
+        SetAdvertisingData = 0x0008,
+        SetAdvertisingEnable = 0x000A,
+        SetScanParameters = 0x000B,
+        SetScanEnable = 0x000C,
     }
 }

@@ -16,7 +16,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using WinBeacon.Stack.Hci;
 using WinBeacon.Stack.Hci.Commands;
@@ -75,12 +74,10 @@ namespace WinBeacon.Stack.Controllers
             SendCommand(new LeSetScanParametersCommand(true, 10000, 10000, false, false));
             SendCommand(new ReadBdAddrCommand()
             {
-                CommandCompleteCallback = (cmd, evt) =>
+                CommandCompleteCallback = (cmd, deviceAddress) =>
                 {
-                    if (evt.ResultData.Length != 6)
-                        return;
                     if (DeviceAddressReceived != null)
-                        DeviceAddressReceived(this, new DeviceAddressReceivedEventArgs(evt.ResultData.Reverse().ToArray()));
+                        DeviceAddressReceived(this, new DeviceAddressReceivedEventArgs(deviceAddress));
                 }
             });
         }

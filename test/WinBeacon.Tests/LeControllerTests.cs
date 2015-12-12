@@ -15,6 +15,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using Moq;
@@ -79,29 +80,63 @@ namespace WinBeacon.Tests
                 Times.Exactly(6));
         }
 
+        [Test]
+        public void LeController_DeviceAddressReceived()
+        {
+            var transportMock = new Mock<FakeCommandTransport> { CallBase = true };
+            transportMock
+                .Setup(x => x.GetCommandCompletePayload(It.IsAny<byte[]>(), It.IsAny<DataType>()))
+                .Returns(new Func<byte[], DataType, byte[]>((data, dataType) =>
+                {
+                    var readBdAddrData = new ReadBdAddrCommand().ToByteArray();
+                    if (!Enumerable.SequenceEqual(data, readBdAddrData))
+                        return null;
+                    return new byte[] { 0x60, 0x50, 0x40, 0x30, 0x20, 0x10 };
+                }));
+
+            using (var controller = new LeController(transportMock.Object))
+            {
+                DeviceAddress deviceAddress = null;
+                var done = new ManualResetEvent(false);
+                controller.DeviceAddressReceived += (sender, e) =>
+                {
+                    deviceAddress = e.DeviceAddress;
+                    done.Set();
+                };
+
+                controller.Open();
+                Assert.IsTrue(done.WaitOne(1000, false));
+                Assert.AreEqual(new byte[] { 0x10, 0x20, 0x30, 0x40, 0x50, 0x60 }, deviceAddress.Address);
+            }
+        }
+
         #region Helpers
 
         internal class FakeCommandTransport : ITransport
         {
             public virtual void Send(byte[] data, DataType dataType)
             {
+                var payload = GetCommandCompletePayload(data, dataType);
                 ushort opcode = (ushort)(data[0] + (data[1] << 8));
-                var commandCompleteEvent = new byte[]
+                var commandCompleteEvent = new List<byte>
                     {
                         (byte)EventCode.CommandComplete,
-                        0x00, // payloadSize
+                        (byte)(payload != null ? payload.Length : 0),
                         0x00, // NumberOfCommandsAllowedToSend
                         data[0], // CommandOpcode lsb
                         data[1], // CommandOpcode msb
                         0x00 // CommandParameterDataLength
                     };
+                if (payload != null)
+                    commandCompleteEvent.AddRange(payload);
                 if (DataReceived != null)
-                    DataReceived(this, new DataReceivedEventArgs(commandCompleteEvent, DataType.Command));
+                    DataReceived(this, new DataReceivedEventArgs(commandCompleteEvent.ToArray(), DataType.Command));
             }
             public event EventHandler<DataReceivedEventArgs> DataReceived;
             public virtual void Open() { }
             public virtual void Close() { }
             public virtual void Dispose() { }
+            public virtual byte[] GetCommandCompletePayload(byte[] data, DataType dataType) { return null; }
         }
 
         #endregion

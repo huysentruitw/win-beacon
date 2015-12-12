@@ -14,18 +14,11 @@
  * limitations under the License.
  */
 
-using WinBeacon.Stack.Hci.Opcodes;
-using WinBeacon.Stack.Hci.Parameters;
-
-namespace WinBeacon.Stack.Hci.Commands
+namespace WinBeacon.Stack.Hci.Opcodes
 {
-    internal class LeSetScanEnableCommand : Command
+    internal enum InformationalParametersOpcode : ushort
     {
-        public LeSetScanEnableCommand(bool enable, bool filterDuplicates)
-            : base(OpcodeGroup.LeController, (int)LeControllerOpcode.SetScanEnable)
-        {
-            Parameters.Add(new BoolCommandParameter(enable));
-            Parameters.Add(new BoolCommandParameter(filterDuplicates));
-        }
+        ReadLocalVersion = 0x0001,
+        ReadBdAddr = 0x0009
     }
 }

@@ -14,12 +14,14 @@
  * limitations under the License.
  */
 
+using WinBeacon.Stack.Hci.Opcodes;
+
 namespace WinBeacon.Stack.Hci.Commands
 {
     internal class LeReadHostSupportedCommand : Command
     {
         public LeReadHostSupportedCommand()
-            : base(OpcodeGroup.ControllerBaseband, 0x6C)
+            : base(OpcodeGroup.ControllerBaseband, (int)ControllerBasebandOpcode.LeReadHostSupported)
         {
         }
     }
