@@ -14,12 +14,14 @@
  * limitations under the License.
  */
 
+using WinBeacon.Stack.Hci.Opcodes;
+
 namespace WinBeacon.Stack.Hci.Commands
 {
     internal class ReadLocalVersionCommand : Command
     {
         public ReadLocalVersionCommand()
-            : base(OpcodeGroup.InformationalParameters, 0x01)
+            : base(OpcodeGroup.InformationalParameters, (int)InformationalParametersOpcode.ReadLocalVersion)
         {
         }
     }

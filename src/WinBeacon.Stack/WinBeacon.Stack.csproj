@@ -73,6 +73,9 @@
     <Compile Include="Hci\Events\LeMetaEvent.cs" />
     <Compile Include="Hci\ICommandParameter.cs" />
     <Compile Include="Hci\OpcodeGroup.cs" />
+    <Compile Include="Hci\Opcodes\ControllerBasebandOpcode.cs" />
+    <Compile Include="Hci\Opcodes\InformationalParametersOpcode.cs" />
+    <Compile Include="Hci\Opcodes\LeControllerOpcode.cs" />
     <Compile Include="Hci\Parameters\BoolCommandParameter.cs" />
     <Compile Include="Hci\Parameters\ByteArrayCommandParameter.cs" />
     <Compile Include="Hci\Parameters\ByteCommandParameter.cs" />

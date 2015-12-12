@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+using WinBeacon.Stack.Hci.Opcodes;
 using WinBeacon.Stack.Hci.Parameters;
 
 namespace WinBeacon.Stack.Hci.Commands
@@ -21,7 +22,7 @@ namespace WinBeacon.Stack.Hci.Commands
     internal class LeSetEventMaskCommand : Command
     {
         public LeSetEventMaskCommand(byte[] mask)
-            : base(OpcodeGroup.LeController, 0x01)
+            : base(OpcodeGroup.LeController, (int)LeControllerOpcode.SetEventMask)
         {
             Parameters.Add(new ByteArrayCommandParameter(mask));
         }

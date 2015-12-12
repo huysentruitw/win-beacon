@@ -14,12 +14,14 @@
  * limitations under the License.
  */
 
+using WinBeacon.Stack.Hci.Opcodes;
+
 namespace WinBeacon.Stack.Hci.Commands
 {
     internal class ResetCommand : Command
     {
         public ResetCommand()
-            : base(OpcodeGroup.ControllerBaseband, 0x03)
+            : base(OpcodeGroup.ControllerBaseband, (int)ControllerBasebandOpcode.Reset)
         {
         }
     }

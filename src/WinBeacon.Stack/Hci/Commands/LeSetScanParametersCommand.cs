@@ -16,6 +16,7 @@
 
 using System;
 using System.Diagnostics;
+using WinBeacon.Stack.Hci.Opcodes;
 using WinBeacon.Stack.Hci.Parameters;
 
 namespace WinBeacon.Stack.Hci.Commands
@@ -23,7 +24,7 @@ namespace WinBeacon.Stack.Hci.Commands
     internal class LeSetScanParametersCommand : Command
     {
         public LeSetScanParametersCommand(bool activeScanning, ushort intervalInMs, ushort windowInMs, bool useRandomAddress, bool onlyAcceptWhitelistedAdvertisers)
-            : base(OpcodeGroup.LeController, 0x0B)
+            : base(OpcodeGroup.LeController, (int)LeControllerOpcode.SetScanParameters)
         {
             ushort intervalCode = (ushort)Math.Ceiling(intervalInMs * 0.625);
             ushort windowCode = (ushort)Math.Ceiling(windowInMs * 0.625);

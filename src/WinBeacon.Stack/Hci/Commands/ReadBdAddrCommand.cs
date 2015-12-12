@@ -15,13 +15,14 @@
  */
 
 using System.Linq;
+using WinBeacon.Stack.Hci.Opcodes;
 
 namespace WinBeacon.Stack.Hci.Commands
 {
     internal class ReadBdAddrCommand : Command<DeviceAddress>
     {
         public ReadBdAddrCommand()
-            : base(OpcodeGroup.InformationalParameters, 0x09)
+            : base(OpcodeGroup.InformationalParameters, (int)InformationalParametersOpcode.ReadBdAddr)
         {
         }
 
