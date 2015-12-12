@@ -58,6 +58,7 @@
     <Compile Include="Hci\Commands\LeSetScanParametersCommand.cs" />
     <Compile Include="Hci\Commands\LeWriteHostSupportedCommand.cs" />
     <Compile Include="Hci\Commands\ReadBdAddrCommand.cs" />
+    <Compile Include="Hci\Commands\ReadLocalVersionCommand.cs" />
     <Compile Include="Hci\Commands\ResetCommand.cs" />
     <Compile Include="Hci\DataReceivedEventArgs.cs" />
     <Compile Include="Hci\DataType.cs" />
