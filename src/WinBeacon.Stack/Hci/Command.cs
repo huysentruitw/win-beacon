@@ -42,12 +42,12 @@ namespace WinBeacon.Stack.Hci
             return result.ToArray();
         }
 
-        internal Action<Command> CommandCompleteCallback = null;
+        internal Action<Command, CommandCompleteEvent> CommandCompleteCallback = null;
 
         internal virtual void OnCommandComplete(CommandCompleteEvent e)
         {
             if (CommandCompleteCallback != null)
-                CommandCompleteCallback(this);
+                CommandCompleteCallback(this, e);
         }
     }
 
