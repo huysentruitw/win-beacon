@@ -26,9 +26,9 @@ namespace WinBeacon.Stack
         /// <summary>
         /// Received device address.
         /// </summary>
-        public byte[] DeviceAddress;
+        public DeviceAddress DeviceAddress { get; private set; }
 
-        internal DeviceAddressReceivedEventArgs(byte[] deviceAddress)
+        internal DeviceAddressReceivedEventArgs(DeviceAddress deviceAddress)
         {
             DeviceAddress = deviceAddress;
         }

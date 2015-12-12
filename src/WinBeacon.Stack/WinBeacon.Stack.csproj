@@ -49,6 +49,7 @@
     </Compile>
     <Compile Include="Controllers\LeController.cs" />
     <Compile Include="Controllers\LibUsbController.cs" />
+    <Compile Include="DeviceAddress.cs" />
     <Compile Include="DeviceAddressReceivedEventArgs.cs" />
     <Compile Include="Hci\Command.cs" />
     <Compile Include="Hci\Commands\LeReadHostSupportedCommand.cs" />

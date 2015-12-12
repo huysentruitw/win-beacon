@@ -96,7 +96,7 @@ namespace WinBeacon.Tests
 
             using (var controller = new LeController(transportMock.Object))
             {
-                byte[] deviceAddress = null;
+                DeviceAddress deviceAddress = null;
                 var done = new ManualResetEvent(false);
                 controller.DeviceAddressReceived += (sender, e) =>
                 {
@@ -106,7 +106,7 @@ namespace WinBeacon.Tests
 
                 controller.Open();
                 Assert.IsTrue(done.WaitOne(1000, false));
-                Assert.AreEqual(new byte[] { 0x10, 0x20, 0x30, 0x40, 0x50, 0x60 }, deviceAddress);
+                Assert.AreEqual(new byte[] { 0x10, 0x20, 0x30, 0x40, 0x50, 0x60 }, deviceAddress.Address);
             }
         }
 
