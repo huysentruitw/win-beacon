@@ -118,33 +118,40 @@ namespace WinBeacon
         {
             if (e.EventType == LeAdvertisingEventType.ScanRsp)
                 return null;
-            if (e.Payload.Length < 9)
-                return null;
             var payload = new Queue<byte>(e.Payload);
-            var ad1Length = payload.Dequeue();
-            var ad1Type = payload.Dequeue();
-            var flags = payload.Dequeue();
-            var ad2Length = payload.Dequeue();
-            var ad2Type = payload.Dequeue();
-            var companyId = (ushort)((payload.Dequeue() << 8) + payload.Dequeue());
-            var b0advInd = payload.Dequeue();
-            var b1advInd = payload.Dequeue();
-            if (ad1Length != 2 || ad1Type != 0x01 || ad2Length < 26 || ad2Type != 0xFF)
-                return null;
-            var uuid = payload.Dequeue(16);
-            var major = (ushort)((payload.Dequeue() << 8) + payload.Dequeue());
-            var minor = (ushort)((payload.Dequeue() << 8) + payload.Dequeue());
-            var txPower = (sbyte)payload.Dequeue();
-            return new Beacon
+            while (payload.Count > 0)
             {
-                Uuid = uuid.ToLittleEndianFormattedUuidString(),
-                Address = e.Address,
-                Major = major,
-                Minor = minor,
-                Rssi = e.Rssi,
-                CalibratedTxPower = txPower,
-                CompanyId = companyId
-            };
+                var adLength = payload.Dequeue();
+                if (payload.Count < adLength)
+                    break;
+                var adType = payload.Dequeue();
+                if (adType == 0xFF || adLength >= 26)
+                {
+                    var companyId = (ushort)((payload.Dequeue() << 8) + payload.Dequeue());
+                    var b0advInd = payload.Dequeue();
+                    var b1advInd = payload.Dequeue();
+                    var uuid = payload.Dequeue(16);
+                    var major = (ushort)((payload.Dequeue() << 8) + payload.Dequeue());
+                    var minor = (ushort)((payload.Dequeue() << 8) + payload.Dequeue());
+                    var txPower = (sbyte)payload.Dequeue();
+                    return new Beacon
+                    {
+                        Uuid = uuid.ToLittleEndianFormattedUuidString(),
+                        Address = e.Address,
+                        Major = major,
+                        Minor = minor,
+                        Rssi = e.Rssi,
+                        CalibratedTxPower = txPower,
+                        CompanyId = companyId
+                    };
+                }
+                else
+                {
+                    if (adLength > 0)
+                        payload.Dequeue(adLength - 1);
+                }
+            }
+            return null;
         }
 
         internal byte[] ToAdvertisingData()
