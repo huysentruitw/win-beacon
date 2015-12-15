@@ -71,6 +71,7 @@ namespace WinBeacon.Stack.Controllers
             SendCommand(new SetEventMaskCommand(new byte[] { 0xFF, 0xFF, 0xFB, 0xFF, 0x07, 0xF8, 0xBF, 0x3D }));
             SendCommand(new LeSetEventMaskCommand(new byte[] { 0x1F, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }));
             SendCommand(new LeWriteHostSupportedCommand(true, false));
+            SendCommand(new LeSetScanEnableCommand(false, false));
             SendCommand(new LeSetScanParametersCommand(true, 10000, 10000, false, false));
             SendCommand(new ReadBdAddrCommand()
             {
