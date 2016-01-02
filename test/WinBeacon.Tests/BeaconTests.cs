@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2015 Huysentruit Wouter
+ * Copyright 2015-2016 Huysentruit Wouter
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -52,7 +52,7 @@ namespace WinBeacon.Tests
         }
 
         [Test]
-        public void Beacon_Parse()
+        public void Beacon_ParseDataWithFlags()
         {
             var data = new byte[] {
                 0x00, 0x00, 0xBC, 0x9A, 0x78, 0x56, 0x34, 0x12, 0x1E, 0x02, 0x01, 0x1A, 0x1A, 0xFF, 0xAA,
@@ -72,7 +72,7 @@ namespace WinBeacon.Tests
         }
 
         [Test]
-        public void Beacon_FullStackParse()
+        public void Beacon_ParseDataWithoutFlags()
         {
             var data = new byte[] {
                 0x00, 0x00, 0x28, 0xEA, 0x6B, 0xB8, 0x5F, 0xD0, 0x1B, 0x1A, 0xFF, 0x4C, 0x00, 0x02, 0x15,
