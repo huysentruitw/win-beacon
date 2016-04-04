@@ -22,6 +22,7 @@ WinBeacon is a managed .NET (C#) library with a minimal Bluetooth LE Stack that 
 | ASUS | USB-BT400 | BCM20702A0 | VID_0B05 PID_17CB | Yes |
 | Belkin | Mini Bluetooth 4.0 Adapter Class 2.10M | BCM20702A0 | VID_050D PID_065A | Yes |
 | Pluggable | USB Bluetooth 4.0 Low Energy Micro Adapter | BCM20702A0 | VID_0A5C PID_21E8 | Yes |
+| CSR | USB Bluetooth 4.0 | CSR8510  | VID_0A12 PID_0001 | Yes |
 
 If anyone can test with other BT4.0 dongle types, please let me know how it works out or send us a pull request.
 
