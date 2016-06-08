@@ -125,7 +125,7 @@ namespace WinBeacon
                 if (payload.Count < adLength)
                     break;
                 var adType = payload.Dequeue();
-                if (adType == 0xFF || adLength >= 26)
+                if (adType == 0xFF && adLength >= 26)
                 {
                     var companyId = (ushort)((payload.Dequeue() << 8) + payload.Dequeue());
                     var b0advInd = payload.Dequeue();
