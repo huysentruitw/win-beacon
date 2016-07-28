@@ -122,6 +122,9 @@ namespace WinBeacon.Stack.Controllers
         public void EnableAdvertising(byte[] advertisementData)
         {
             SendCommand(new LeSetAdvertisingDataCommand(advertisementData));
+            // A0 = 160 --> 160 * 0.625ms = 100ms
+            byte[] advertisementParameters = { 0xA0, 0x00, 0xA0, 0x00, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x07, 0x00 };
+            SendCommand(new LeSetAdvertisingParameters(advertisementParameters));
             SendCommand(new LeSetAdvertisingEnableCommand(true));
         }
 
