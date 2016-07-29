@@ -27,7 +27,8 @@ namespace WinBeacon
         /// Enable advertising as a beacon.
         /// </summary>
         /// <param name="beacon">The beacon to emulate.</param>
-        void EnableAdvertising(Beacon beacon);
+        /// <param name="advertisingInterval">The advertising interval. Interval should be between 20 ms and 10.24 seconds. Defaults to 1.28 seconds.</param>
+        void EnableAdvertising(Beacon beacon, TimeSpan? advertisingInterval = null);
 
         /// <summary>
         /// Disable advertising as a beacon.

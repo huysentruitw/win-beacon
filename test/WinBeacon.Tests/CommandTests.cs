@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+using System;
 using NUnit.Framework;
 using WinBeacon.Stack.Hci;
 using WinBeacon.Stack.Hci.Commands;
@@ -82,6 +83,19 @@ namespace WinBeacon.Tests
         }
 
         [Test]
+        public void Command_LeSetAdvertisingParametersCommand()
+        {
+            Assert.That(() => new LeSetAdvertisingParametersCommand(20, 20, AdvertisingType.ConnectableUndirected, OwnAddressType.Public, PeerAddressType.Public, new byte[6], AdvertisingChannelMap.UseAllChannels, AdvertisingFilterPolicy.ConnectAllScanAll), Throws.Nothing);
+            Assert.That(() => new LeSetAdvertisingParametersCommand(19, 20, AdvertisingType.ConnectableUndirected, OwnAddressType.Public, PeerAddressType.Public, new byte[6], AdvertisingChannelMap.UseAllChannels, AdvertisingFilterPolicy.ConnectAllScanAll), Throws.InstanceOf<ArgumentOutOfRangeException>());
+            Assert.That(() => new LeSetAdvertisingParametersCommand(20, 19, AdvertisingType.ConnectableUndirected, OwnAddressType.Public, PeerAddressType.Public, new byte[6], AdvertisingChannelMap.UseAllChannels, AdvertisingFilterPolicy.ConnectAllScanAll), Throws.InstanceOf<ArgumentOutOfRangeException>());
+            Assert.That(() => new LeSetAdvertisingParametersCommand(10240, 10240, AdvertisingType.ConnectableUndirected, OwnAddressType.Public, PeerAddressType.Public, new byte[6], AdvertisingChannelMap.UseAllChannels, AdvertisingFilterPolicy.ConnectAllScanAll), Throws.Nothing);
+            Assert.That(() => new LeSetAdvertisingParametersCommand(10241, 10240, AdvertisingType.ConnectableUndirected, OwnAddressType.Public, PeerAddressType.Public, new byte[6], AdvertisingChannelMap.UseAllChannels, AdvertisingFilterPolicy.ConnectAllScanAll), Throws.InstanceOf<ArgumentOutOfRangeException>());
+            Assert.That(() => new LeSetAdvertisingParametersCommand(10240, 10241, AdvertisingType.ConnectableUndirected, OwnAddressType.Public, PeerAddressType.Public, new byte[6], AdvertisingChannelMap.UseAllChannels, AdvertisingFilterPolicy.ConnectAllScanAll), Throws.InstanceOf<ArgumentOutOfRangeException>());
+            var command = new LeSetAdvertisingParametersCommand(200, 400, AdvertisingType.ConnectableUndirected, OwnAddressType.Public, PeerAddressType.Public, new byte[6], AdvertisingChannelMap.UseAllChannels, AdvertisingFilterPolicy.ConnectAllScanAll);
+            Assert.That(command.ToByteArray(), Is.EqualTo(new byte[] { 0x06, 0x20, 0x12, 0x40, 0x01, 0x80, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x07, 0x00 }));
+        }
+
+        [Test]
         public void Command_LeSetScanEnableCommand()
         {
             var command = new LeSetScanEnableCommand(false, false);
@@ -97,22 +111,22 @@ namespace WinBeacon.Tests
         [Test]
         public void Command_LeSetScanParametersCommand()
         {
-            var command = new LeSetScanParametersCommand(false, 0x1234, 0x5678, false, false);
-            Assert.AreEqual(new byte[] { 0x0B, 0x20, 0x07, 0x00, 0x20, 0x1D, 0x5A, 0x8A, 0x00, 0x00 }, command.ToByteArray());
-            command = new LeSetScanParametersCommand(false, 0x5678, 0x1234, false, true);
-            Assert.AreEqual(new byte[] { 0x0B, 0x20, 0x07, 0x00, 0x5A, 0x8A, 0x20, 0x1D, 0x00, 0x01 }, command.ToByteArray());
-            command = new LeSetScanParametersCommand(false, 0x1234, 0x5678, true, false);
-            Assert.AreEqual(new byte[] { 0x0B, 0x20, 0x07, 0x00, 0x20, 0x1D, 0x5A, 0x8A, 0x01, 0x00 }, command.ToByteArray());
-            command = new LeSetScanParametersCommand(false, 0x5678, 0x1234, true, true);
-            Assert.AreEqual(new byte[] { 0x0B, 0x20, 0x07, 0x00, 0x5A, 0x8A, 0x20, 0x1D, 0x01, 0x01 }, command.ToByteArray());
-            command = new LeSetScanParametersCommand(true, 0x1234, 0x5678, false, false);
-            Assert.AreEqual(new byte[] { 0x0B, 0x20, 0x07, 0x01, 0x20, 0x1D, 0x5A, 0x8A, 0x00, 0x00 }, command.ToByteArray());
-            command = new LeSetScanParametersCommand(true, 0x5678, 0x1234, false, true);
-            Assert.AreEqual(new byte[] { 0x0B, 0x20, 0x07, 0x01, 0x5A, 0x8A, 0x20, 0x1D, 0x00, 0x01 }, command.ToByteArray());
-            command = new LeSetScanParametersCommand(true, 0x1234, 0x5678, true, false);
-            Assert.AreEqual(new byte[] { 0x0B, 0x20, 0x07, 0x01, 0x20, 0x1D, 0x5A, 0x8A, 0x01, 0x00 }, command.ToByteArray());
-            command = new LeSetScanParametersCommand(true, 0x5678, 0x1234, true, true);
-            Assert.AreEqual(new byte[] { 0x0B, 0x20, 0x07, 0x01, 0x5A, 0x8A, 0x20, 0x1D, 0x01, 0x01 }, command.ToByteArray());
+            var command = new LeSetScanParametersCommand(false, 0x1234, 0x2345, false, false);
+            Assert.AreEqual(new byte[] { 0x0B, 0x20, 0x07, 0x00, 0x20, 0x1D, 0x6F, 0x38, 0x00, 0x00 }, command.ToByteArray());
+            command = new LeSetScanParametersCommand(false, 0x2345, 0x1234, false, true);
+            Assert.AreEqual(new byte[] { 0x0B, 0x20, 0x07, 0x00, 0x6F, 0x38, 0x20, 0x1D, 0x00, 0x01 }, command.ToByteArray());
+            command = new LeSetScanParametersCommand(false, 0x1234, 0x2345, true, false);
+            Assert.AreEqual(new byte[] { 0x0B, 0x20, 0x07, 0x00, 0x20, 0x1D, 0x6F, 0x38, 0x01, 0x00 }, command.ToByteArray());
+            command = new LeSetScanParametersCommand(false, 0x2345, 0x1234, true, true);
+            Assert.AreEqual(new byte[] { 0x0B, 0x20, 0x07, 0x00, 0x6F, 0x38, 0x20, 0x1D, 0x01, 0x01 }, command.ToByteArray());
+            command = new LeSetScanParametersCommand(true, 0x1234, 0x2345, false, false);
+            Assert.AreEqual(new byte[] { 0x0B, 0x20, 0x07, 0x01, 0x20, 0x1D, 0x6F, 0x38, 0x00, 0x00 }, command.ToByteArray());
+            command = new LeSetScanParametersCommand(true, 0x2345, 0x1234, false, true);
+            Assert.AreEqual(new byte[] { 0x0B, 0x20, 0x07, 0x01, 0x6F, 0x38, 0x20, 0x1D, 0x00, 0x01 }, command.ToByteArray());
+            command = new LeSetScanParametersCommand(true, 0x1234, 0x2345, true, false);
+            Assert.AreEqual(new byte[] { 0x0B, 0x20, 0x07, 0x01, 0x20, 0x1D, 0x6F, 0x38, 0x01, 0x00 }, command.ToByteArray());
+            command = new LeSetScanParametersCommand(true, 0x2345, 0x1234, true, true);
+            Assert.AreEqual(new byte[] { 0x0B, 0x20, 0x07, 0x01, 0x6F, 0x38, 0x20, 0x1D, 0x01, 0x01 }, command.ToByteArray());
         }
 
         [Test]

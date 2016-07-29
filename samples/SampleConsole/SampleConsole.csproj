@@ -48,10 +48,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\WinBeacon.Stack\WinBeacon.Stack.csproj">
-      <Project>{40BE88D6-A9CF-4F91-9AC1-9C0ED796CF3A}</Project>
-      <Name>WinBeacon.Stack</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\WinBeacon\WinBeacon.csproj">
       <Project>{276a318e-8e7c-424b-bf6d-263e98bbadfd}</Project>
       <Name>WinBeacon</Name>

@@ -51,12 +51,11 @@
     <Compile Include="Controllers\LibUsbController.cs" />
     <Compile Include="DeviceAddress.cs" />
     <Compile Include="DeviceAddressReceivedEventArgs.cs" />
-    <Compile Include="Hci\AdvertisingParameters.cs" />
     <Compile Include="Hci\Command.cs" />
     <Compile Include="Hci\Commands\LeReadHostSupportedCommand.cs" />
     <Compile Include="Hci\Commands\LeSetAdvertisingDataCommand.cs" />
     <Compile Include="Hci\Commands\LeSetAdvertisingEnableCommand.cs" />
-    <Compile Include="Hci\Commands\LeSetAdvertisingParameters.cs" />
+    <Compile Include="Hci\Commands\LeSetAdvertisingParametersCommand.cs" />
     <Compile Include="Hci\Commands\LeSetEventMaskCommand.cs" />
     <Compile Include="Hci\Commands\LeSetScanEnableCommand.cs" />
     <Compile Include="Hci\Commands\LeSetScanParametersCommand.cs" />

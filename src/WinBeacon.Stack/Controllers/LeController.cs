@@ -33,7 +33,6 @@ namespace WinBeacon.Stack.Controllers
         private ManualResetEvent cancelThread = new ManualResetEvent(false);
         private Queue<Command> commandQueue = new Queue<Command>();
         private AutoResetEvent executeNextCommand = new AutoResetEvent(false);
-        private Command AdvParams = new LeSetAdvertisingParameters(1280, 1280, AdvertisingType.ADV_IND, OwnAddressType.Public, PeerAddressType.Public, "000000000000", AdvertisingChannelMap.ChannelAll, AdvertisingFilterPolicy.ConnectAllScanAll);
         
         internal LeController(ITransport transport)
         {
@@ -117,30 +116,23 @@ namespace WinBeacon.Stack.Controllers
         }
 
         /// <summary>
-        /// Store the Advertising Parameters. They will be used when EnableAdvertising() is being called.
-        /// </summary>
-        /// <param name="advertisingIntervalMinInMs">Minimum advertising interval for undirected and low duty cycle directed advertising. Range: 20-10240  Default: 1280 = 1.28 seconds</param>
-        /// <param name="advertisingIntervalMaxInMs">Maximum advertising interval for undirected and low duty cycle directed advertising. Range: 20-10240  Default: 1280 = 1.28 seconds</param>
-        /// <param name="advertisingType">The Advertising_Type is used to determine the packet type that is used for advertising when advertising is enabled.</param>
-        /// <param name="ownAdressType">Own_Address_Type parameter indicates the type of address being used in the advertising packets.</param>
-        /// <param name="peerAdressType">The Peer_Address_Type parameter contains the Peer’s Identity Type</param>
-        /// <param name="peerAddress">The Peer_Address parameter contains the peer’s Identity Address</param>
-        /// <param name="advertisingChannelMap">The Advertising_Channel_Map is a bit field that indicates the advertising channels that shall be used when transmitting advertising packets.At least one channel bit shall be set in the Advertising_Channel_Map parameter.</param>
-        /// <param name="advertisingFilterPolicy">The Advertising_Filter_Policy parameter shall be ignored when directed advertising is enabled.</param>
-        public void StoreAdvertisingParameters(ushort advertisingIntervalMinInMs, ushort advertisingIntervalMaxInMs, AdvertisingType advertisingType, OwnAddressType ownAdressType, PeerAddressType peerAdressType, string peerAddress, AdvertisingChannelMap advertisingChannelMap, AdvertisingFilterPolicy advertisingFilterPolicy)
-        {
-            AdvParams = new LeSetAdvertisingParameters(advertisingIntervalMinInMs, advertisingIntervalMaxInMs, advertisingType, ownAdressType, peerAdressType, peerAddress, advertisingChannelMap, advertisingFilterPolicy);
-        }
-
-        /// <summary>
         /// Enable Low Energy advertising.
         /// </summary>
         /// <param name="advertisementData">The advertisement data.</param>
-        public void EnableAdvertising(byte[] advertisementData)
+        /// <param name="advertisingIntervalInMs">Interval should be between 20 and 10240 ms. Defaults to 1280 ms.</param>
+        public void EnableAdvertising(byte[] advertisementData, int advertisingIntervalInMs = 1280)
         {
             SendCommand(new LeSetAdvertisingDataCommand(advertisementData));
-            // AdvertisingParameters must be sent after the advertisementData has been inserted and before enabling the advertising.
-            SendCommand(AdvParams);
+            SendCommand(new LeSetAdvertisingParametersCommand(
+                    advertisingIntervalInMs,
+                    advertisingIntervalInMs,
+                    AdvertisingType.ConnectableUndirected,
+                    OwnAddressType.Public,
+                    PeerAddressType.Public,
+                    new byte[6],
+                    AdvertisingChannelMap.UseAllChannels,
+                    AdvertisingFilterPolicy.ConnectAllScanAll
+                ));
             SendCommand(new LeSetAdvertisingEnableCommand(true));
         }
 
