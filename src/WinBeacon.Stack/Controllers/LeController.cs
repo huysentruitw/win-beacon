@@ -33,7 +33,8 @@ namespace WinBeacon.Stack.Controllers
         private ManualResetEvent cancelThread = new ManualResetEvent(false);
         private Queue<Command> commandQueue = new Queue<Command>();
         private AutoResetEvent executeNextCommand = new AutoResetEvent(false);
-
+        private Command AdvParams = new LeSetAdvertisingParameters(1280, 1280, AdvertisingType.ADV_IND, OwnAddressType.Public, PeerAddressType.Public, "000000000000", AdvertisingChannelMap.ChannelAll, AdvertisingFilterPolicy.ConnectAllScanAll);
+        
         internal LeController(ITransport transport)
         {
             this.transport = transport;
