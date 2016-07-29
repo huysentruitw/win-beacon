@@ -15,7 +15,7 @@
  */
 
 using System;
-using WinBeacon.Stack.Hci
+using WinBeacon.Stack.Hci;
 
 namespace WinBeacon.Stack
 {
