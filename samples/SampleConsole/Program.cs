@@ -1,5 +1,6 @@
 ﻿using System;
 using WinBeacon;
+using WinBeacon.Stack.Hci;
 
 namespace SampleConsole
 {
