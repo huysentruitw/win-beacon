@@ -15,6 +15,7 @@
  */
 
 using System;
+using WinBeacon.Stack.Hci;
 
 namespace WinBeacon.Stack
 {
@@ -43,6 +44,19 @@ namespace WinBeacon.Stack
         /// </summary>
         void DisableScanning();
         
+        /// <summary>
+        /// Store the Advertising Parameters. They will be used when EnableAdvertising() is being called.
+        /// </summary>
+        /// <param name="advertisingIntervalMinInMs">Minimum advertising interval for undirected and low duty cycle directed advertising. Range: 20-10240  Default: 1280 = 1.28 seconds</param>
+        /// <param name="advertisingIntervalMaxInMs">Maximum advertising interval for undirected and low duty cycle directed advertising. Range: 20-10240  Default: 1280 = 1.28 seconds</param>
+        /// <param name="advertisingType">The Advertising_Type is used to determine the packet type that is used for advertising when advertising is enabled.</param>
+        /// <param name="ownAdressType">Own_Address_Type parameter indicates the type of address being used in the advertising packets.</param>
+        /// <param name="peerAdressType">The Peer_Address_Type parameter contains the Peer’s Identity Type</param>
+        /// <param name="peerAddress">The Peer_Address parameter contains the peer’s Identity Address</param>
+        /// <param name="advertisingChannelMap">The Advertising_Channel_Map is a bit field that indicates the advertising channels that shall be used when transmitting advertising packets.At least one channel bit shall be set in the Advertising_Channel_Map parameter.</param>
+        /// <param name="advertisingFilterPolicy">The Advertising_Filter_Policy parameter shall be ignored when directed advertising is enabled.</param>
+        void StoreAdvertisingParameters(ushort advertisingIntervalMinInMs, ushort advertisingIntervalMaxInMs, AdvertisingType advertisingType, OwnAddressType ownAdressType, PeerAddressType peerAdressType, string peerAddress, AdvertisingChannelMap advertisingChannelMap, AdvertisingFilterPolicy advertisingFilterPolicy);
+
         /// <summary>
         /// Enable Low Energy advertising.
         /// </summary>
