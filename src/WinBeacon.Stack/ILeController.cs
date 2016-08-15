@@ -42,12 +42,13 @@ namespace WinBeacon.Stack
         /// Disable Low Energy device scanning.
         /// </summary>
         void DisableScanning();
-        
+
         /// <summary>
         /// Enable Low Energy advertising.
         /// </summary>
         /// <param name="advertisementData">The advertisement data.</param>
-        void EnableAdvertising(byte[] advertisementData);
+        /// <param name="advertisingIntervalInMs">Interval should be between 20 and 10240 ms. Defaults to 1280 ms.</param>
+        void EnableAdvertising(byte[] advertisementData, int advertisingIntervalInMs = 1280);
         
         /// <summary>
         /// Disable Low Energy advertising.

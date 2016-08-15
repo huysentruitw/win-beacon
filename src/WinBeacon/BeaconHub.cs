@@ -18,6 +18,7 @@ using System;
 using WinBeacon.Stack;
 using WinBeacon.Stack.Controllers;
 using WinBeacon.Stack.Hci.Events;
+using WinBeacon.Stack.Hci;
 
 namespace WinBeacon
 {
@@ -66,13 +67,24 @@ namespace WinBeacon
         /// Enable advertising as a beacon.
         /// </summary>
         /// <param name="beacon">The beacon to emulate.</param>
-        public void EnableAdvertising(Beacon beacon)
+        /// <param name="advertisingInterval">The advertising interval. Interval should be between 20 ms and 10.24 seconds. Defaults to 1.28 seconds.</param>
+        public void EnableAdvertising(Beacon beacon, TimeSpan? advertisingInterval = null)
         {
             if (controller == null)
                 throw new ObjectDisposedException("controller");
             if (beacon == null)
                 throw new ArgumentNullException("beacon");
-            controller.EnableAdvertising(beacon.ToAdvertisingData());
+
+            if (advertisingInterval.HasValue)
+            {
+                if (advertisingInterval.Value.TotalMilliseconds < 20 || advertisingInterval.Value.TotalMilliseconds > 10240)
+                    throw new ArgumentOutOfRangeException("advertisingInterval", "Interval should be between 20 ms and 10.24 seconds");
+                controller.EnableAdvertising(beacon.ToAdvertisingData(), (ushort)advertisingInterval.Value.TotalMilliseconds);
+            }
+            else
+            {
+                controller.EnableAdvertising(beacon.ToAdvertisingData());
+            }
         }
 
         /// <summary>

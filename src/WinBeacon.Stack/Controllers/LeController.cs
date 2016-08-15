@@ -33,7 +33,7 @@ namespace WinBeacon.Stack.Controllers
         private ManualResetEvent cancelThread = new ManualResetEvent(false);
         private Queue<Command> commandQueue = new Queue<Command>();
         private AutoResetEvent executeNextCommand = new AutoResetEvent(false);
-
+        
         internal LeController(ITransport transport)
         {
             this.transport = transport;
@@ -119,9 +119,20 @@ namespace WinBeacon.Stack.Controllers
         /// Enable Low Energy advertising.
         /// </summary>
         /// <param name="advertisementData">The advertisement data.</param>
-        public void EnableAdvertising(byte[] advertisementData)
+        /// <param name="advertisingIntervalInMs">Interval should be between 20 and 10240 ms. Defaults to 1280 ms.</param>
+        public void EnableAdvertising(byte[] advertisementData, int advertisingIntervalInMs = 1280)
         {
             SendCommand(new LeSetAdvertisingDataCommand(advertisementData));
+            SendCommand(new LeSetAdvertisingParametersCommand(
+                    advertisingIntervalInMs,
+                    advertisingIntervalInMs,
+                    AdvertisingType.ConnectableUndirected,
+                    OwnAddressType.Public,
+                    PeerAddressType.Public,
+                    new byte[6],
+                    AdvertisingChannelMap.UseAllChannels,
+                    AdvertisingFilterPolicy.ConnectAllScanAll
+                ));
             SendCommand(new LeSetAdvertisingEnableCommand(true));
         }
 
