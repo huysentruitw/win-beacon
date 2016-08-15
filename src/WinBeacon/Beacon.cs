@@ -178,6 +178,7 @@ namespace WinBeacon
                 (byte)(Minor & 0xFF),
                 (byte)CalibratedTxPower
             });
+            result.Add(0);
             return result.ToArray();
         }
     }
