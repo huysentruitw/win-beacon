@@ -69,9 +69,9 @@ namespace WinBeacon.Stack.Hci.Commands
 
             Parameters.Add(new UshortCommandParameter(minimumAdvertisingIntervalCode));
             Parameters.Add(new UshortCommandParameter(maximumAdvertisingIntervalCode));
-            Parameters.Add(new UshortCommandParameter((byte)advertisingType));
-            Parameters.Add(new UshortCommandParameter((byte)ownAdressType));
-            Parameters.Add(new UshortCommandParameter((byte)peerAdressType));
+            Parameters.Add(new ByteCommandParameter((byte)advertisingType));
+            Parameters.Add(new ByteCommandParameter((byte)ownAdressType));
+            Parameters.Add(new ByteCommandParameter((byte)peerAdressType));
             Parameters.Add(new ByteArrayCommandParameter(peerAddress));
             Parameters.Add(new ByteCommandParameter((byte)advertisingChannelMap));
             Parameters.Add(new ByteCommandParameter((byte)advertisingFilterPolicy));
