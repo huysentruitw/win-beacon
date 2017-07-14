@@ -92,7 +92,7 @@ namespace WinBeacon.Tests
             Assert.That(() => new LeSetAdvertisingParametersCommand(10241, 10240, AdvertisingType.ConnectableUndirected, OwnAddressType.Public, PeerAddressType.Public, new byte[6], AdvertisingChannelMap.UseAllChannels, AdvertisingFilterPolicy.ConnectAllScanAll), Throws.InstanceOf<ArgumentOutOfRangeException>());
             Assert.That(() => new LeSetAdvertisingParametersCommand(10240, 10241, AdvertisingType.ConnectableUndirected, OwnAddressType.Public, PeerAddressType.Public, new byte[6], AdvertisingChannelMap.UseAllChannels, AdvertisingFilterPolicy.ConnectAllScanAll), Throws.InstanceOf<ArgumentOutOfRangeException>());
             var command = new LeSetAdvertisingParametersCommand(200, 400, AdvertisingType.ConnectableUndirected, OwnAddressType.Public, PeerAddressType.Public, new byte[6], AdvertisingChannelMap.UseAllChannels, AdvertisingFilterPolicy.ConnectAllScanAll);
-            Assert.That(command.ToByteArray(), Is.EqualTo(new byte[] { 0x06, 0x20, 0x12, 0x40, 0x01, 0x80, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x07, 0x00 }));
+            Assert.That(command.ToByteArray(), Is.EqualTo(new byte[] { 0x06, 0x20, 0x0F, 0x40, 0x01, 0x80, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x07, 0x00 })); 
         }
 
         [Test]
