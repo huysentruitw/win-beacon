@@ -5,3 +5,5 @@
 *.exe
 packages/
 *.nupkg
+.vs/
+src/**/*.xml
