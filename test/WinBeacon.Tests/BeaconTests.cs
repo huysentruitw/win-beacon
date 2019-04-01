@@ -15,7 +15,7 @@ namespace WinBeacon.Tests
     {
         private Beacon beacon;
 
-        [TestFixtureSetUp]
+        [SetUp]
         public void Setup()
         {
             beacon = new Beacon("4fe5d5f6-abce-ddfe-1587-123d1a4b567f", 1234, 5678, -48, 0xAABB) { Rssi = -52 };

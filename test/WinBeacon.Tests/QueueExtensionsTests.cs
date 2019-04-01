@@ -33,12 +33,12 @@ namespace WinBeacon.Tests
         }
 
         [Test]
-        [ExpectedException(typeof(InvalidOperationException))]
         public void QueueExtensions_Dequeue_TooMuch()
         {
             var input = new byte[] { 0x9A, 0xBC, 0xDE, 0xF0 };
             var queue = new Queue<byte>(input);
-            queue.Dequeue(6);
+
+            Assert.Throws<InvalidOperationException>(() => queue.Dequeue(6));
         }
 
         [Test]

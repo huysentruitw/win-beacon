@@ -67,12 +67,16 @@ namespace WinBeacon.Tests
         }
 
         [Test]
-        [ExpectedException(typeof(WinBeaconException), ExpectedMessage = "USB device has no configurations")]
         public void LibUsbTransport_NoConfigurations()
         {
-            var usbDeviceMock = new Mock<TestLibUsbDevice>();
-            using (var transport = new LibUsbTransport(usbDeviceMock.Object))
-                transport.Open();
+            var ex = Assert.Throws<WinBeaconException>(() =>
+            {
+                var usbDeviceMock = new Mock<TestLibUsbDevice>();
+                using (var transport = new LibUsbTransport(usbDeviceMock.Object))
+                    transport.Open();
+            });
+
+            Assert.That(ex.Message, Is.EqualTo("USB device has no configurations"));
         }
 
         #region Helpers

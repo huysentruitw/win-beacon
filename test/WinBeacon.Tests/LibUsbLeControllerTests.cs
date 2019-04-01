@@ -23,7 +23,7 @@ namespace WinBeacon.Tests
         ///  * A beacon that broadcasts at minimum 2Hz rate (iPad users can use the BLEBeacon app to advertise as a beacon) 
         /// </summary>
         [Test]
-        [Ignore]
+        [Ignore("Can only be used with a real device")]
         public void LibUsbLeController_WaitForLeMetaEvent()
         {
             var leMetaEventReceived = false;
