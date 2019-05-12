@@ -8,7 +8,6 @@ using System;
 using WinBeacon.Stack;
 using WinBeacon.Stack.Controllers;
 using WinBeacon.Stack.Hci.Events;
-using WinBeacon.Stack.Hci;
 
 namespace WinBeacon
 {
