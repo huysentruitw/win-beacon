@@ -42,7 +42,7 @@ To replace or create a WinUSB driver for the BT4.0 dongle, we advise you to use 
 ### Detecting beacons
 
 ```C#
-using (var hub = new BeaconHub(0x050D, 0x065A))
+using (var hub = new Hub(0x050D, 0x065A))
 {
     hub.BeaconDetected += (sender, e) =>
 		{
@@ -55,7 +55,7 @@ using (var hub = new BeaconHub(0x050D, 0x065A))
 ### Advertise as a beacon
 
 ```C#
-using (var hub = new BeaconHub(0x050D, 0x065A))
+using (var hub = new Hub(0x050D, 0x065A))
 {
     hub.EnableAdvertising(new Beacon("B9407F30-F5F8-466E-AFF9-25556B57FE6D", 1000, 2000, -52));
     Console.ReadKey();

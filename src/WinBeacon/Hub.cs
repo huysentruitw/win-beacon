@@ -14,7 +14,7 @@ namespace WinBeacon
     /// <summary>
     /// Hub for detecting beacons and advertise as a beacon.
     /// </summary>
-    public class BeaconHub : IDisposable
+    public class Hub : IDisposable
     {
         private ILeController controller;
 
@@ -23,7 +23,7 @@ namespace WinBeacon
         /// </summary>
         /// <param name="usbVid">The VID of the BT4.0 dongle.</param>
         /// <param name="usbPid">The PID of the BT4.0 dongle.</param>
-        public BeaconHub(int usbVid, int usbPid)
+        public Hub(int usbVid, int usbPid)
         {
             controller = new LibUsbLeController(usbVid, usbPid);
             controller.LeMetaEventReceived += controller_LeMetaEventReceived;
@@ -34,7 +34,7 @@ namespace WinBeacon
         /// <summary>
         /// Destructor.
         /// </summary>
-        ~BeaconHub()
+        ~Hub()
         {
             Dispose();
         }
