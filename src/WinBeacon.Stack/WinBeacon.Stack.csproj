@@ -18,7 +18,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net45|AnyCPU'">
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsAsErrors />
-    <DocumentationFile>D:\projects\net\WinBeacon\src\WinBeacon.Stack\WinBeacon.Stack.xml</DocumentationFile>
+    <DocumentationFile>bin\WinBeacon.Stack.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
