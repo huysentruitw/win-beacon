@@ -17,34 +17,42 @@ namespace WinBeacon
     public class Beacon : IComparable
     {
         private const int AppleCompanyId = 0x4C00;
+
         /// <summary>
         /// UUID of the beacon.
         /// </summary>
         public string Uuid { get; private set; }
+
         /// <summary>
         /// Bluetooth MAC-address of the beacon.
         /// </summary>
         public byte[] Address { get; private set; }
+
         /// <summary>
         /// Major number of the beacon.
         /// </summary>
         public int Major { get; private set; }
+
         /// <summary>
         /// Minor number of the beacon.
         /// </summary>
         public int Minor { get; private set; }
+
         /// <summary>
         /// RSSI power of the beacon in dB.
         /// </summary>
         public int Rssi { get; internal set; }
+
         /// <summary>
         /// Calibrated TX power of the beacon in dB.
         /// </summary>
         public int CalibratedTxPower { get; private set; }
+
         /// <summary>
         /// CompanyId of the beacon (0x4C00 for Apple iBeacon).
         /// </summary>
         public int CompanyId { get; private set; }
+
         /// <summary>
         /// True if the beacon is an (emulation of) Apple iBeacon.
         /// </summary>
@@ -81,9 +89,7 @@ namespace WinBeacon
         /// <returns>A value that indicates the lexical relationship between the two comparands.</returns>
         public int CompareTo(object obj)
         {
-            var other = obj as Beacon;
-            if (other == null)
-                throw new ArgumentException("Must be of type Beacon", "obj");
+            var other = obj as Beacon ?? throw new ArgumentException("Must be of type Beacon", nameof(obj));
             return Uuid.NullableCompareTo(other.Uuid)
                 ?? Major.NullableCompareTo(other.Major)
                 ?? Minor.CompareTo(other.Minor);
@@ -94,10 +100,7 @@ namespace WinBeacon
         /// </summary>
         /// <returns>String representation of the beacon data.</returns>
         public override string ToString()
-        {
-            return string.Format("UUID: {0}, Address: {1}, Major: {2}, Minor: {3}, RSSI: {4}, TxPower: {5}dB, CompanyId: 0x{6:X}, Distance: {7:0.00}m",
-                Uuid, BitConverter.ToString(Address), Major, Minor, Rssi, CalibratedTxPower, CompanyId, this.GetRange());
-        }
+            => $"UUID: {Uuid}, Address: {BitConverter.ToString(Address)}, Major: {Major}, Minor: {Minor}, RSSI: {Rssi}, TxPower: {CalibratedTxPower}dB, CompanyId: 0x{CompanyId:X}, Distance: {this.GetRange():0.00}m";
 
         /// <summary>
         /// Parse low energy advertising event to a beacon instance.

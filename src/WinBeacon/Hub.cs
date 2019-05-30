@@ -16,7 +16,7 @@ namespace WinBeacon
     /// </summary>
     public class Hub : IDisposable
     {
-        private ILeController controller;
+        private ILeController _controller;
 
         /// <summary>
         /// Creates a hub instance that uses LibUsb or WinUSB as transport.
@@ -25,10 +25,10 @@ namespace WinBeacon
         /// <param name="usbPid">The PID of the BT4.0 dongle.</param>
         public Hub(int usbVid, int usbPid)
         {
-            controller = new LibUsbLeController(usbVid, usbPid);
-            controller.LeMetaEventReceived += controller_LeMetaEventReceived;
-            controller.Open();
-            controller.EnableScanning();
+            _controller = new LibUsbLeController(usbVid, usbPid);
+            _controller.LeMetaEventReceived += controller_LeMetaEventReceived;
+            _controller.Open();
+            _controller.EnableScanning();
         }
 
         /// <summary>
@@ -44,12 +44,13 @@ namespace WinBeacon
         /// </summary>
         public void Dispose()
         {
-            if (controller != null)
+            if (_controller != null)
             {
-                controller.LeMetaEventReceived -= controller_LeMetaEventReceived;
-                controller.Dispose();
+                _controller.LeMetaEventReceived -= controller_LeMetaEventReceived;
+                _controller.Dispose();
             }
-            controller = null;
+
+            _controller = null;
         }
 
         /// <summary>
@@ -59,20 +60,20 @@ namespace WinBeacon
         /// <param name="advertisingInterval">The advertising interval. Interval should be between 20 ms and 10.24 seconds. Defaults to 1.28 seconds.</param>
         public void EnableAdvertising(Beacon beacon, TimeSpan? advertisingInterval = null)
         {
-            if (controller == null)
+            if (_controller == null)
                 throw new ObjectDisposedException("controller");
             if (beacon == null)
-                throw new ArgumentNullException("beacon");
+                throw new ArgumentNullException(nameof(beacon));
 
             if (advertisingInterval.HasValue)
             {
                 if (advertisingInterval.Value.TotalMilliseconds < 20 || advertisingInterval.Value.TotalMilliseconds > 10240)
                     throw new ArgumentOutOfRangeException("advertisingInterval", "Interval should be between 20 ms and 10.24 seconds");
-                controller.EnableAdvertising(beacon.ToAdvertisingData(), (ushort)advertisingInterval.Value.TotalMilliseconds);
+                _controller.EnableAdvertising(beacon.ToAdvertisingData(), (ushort)advertisingInterval.Value.TotalMilliseconds);
             }
             else
             {
-                controller.EnableAdvertising(beacon.ToAdvertisingData());
+                _controller.EnableAdvertising(beacon.ToAdvertisingData());
             }
         }
 
@@ -81,20 +82,18 @@ namespace WinBeacon
         /// </summary>
         public void DisableAdvertising()
         {
-            if (controller == null)
-                throw new ObjectDisposedException("controller");
-            controller.DisableAdvertising();
+            if (_controller == null)
+                throw new ObjectDisposedException(nameof(_controller));
+            _controller.DisableAdvertising();
         }
 
         /// <summary>
         /// Event fired when a beacon is detected. This happens when the dongle receives the beacon's advertising packet.
         /// </summary>
         public event EventHandler<BeaconEventArgs> BeaconDetected;
+
         private void OnBeaconDetected(Beacon beacon)
-        {
-            if (BeaconDetected != null)
-                BeaconDetected(this, new BeaconEventArgs(beacon));
-        }
+            => BeaconDetected?.Invoke(this, new BeaconEventArgs(beacon));
 
         private void controller_LeMetaEventReceived(object sender, LeMetaEventReceivedEventArgs e)
         {
