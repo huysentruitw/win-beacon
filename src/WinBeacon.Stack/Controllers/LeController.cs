@@ -18,15 +18,15 @@ namespace WinBeacon.Stack.Controllers
     /// </summary>
     public class LeController : ILeController
     {
-        private ITransport transport;
-        private Thread commandExecutionThread;
-        private ManualResetEvent cancelThread = new ManualResetEvent(false);
-        private Queue<Command> commandQueue = new Queue<Command>();
-        private AutoResetEvent executeNextCommand = new AutoResetEvent(false);
-        
+        private readonly ITransport _transport;
+        private readonly ManualResetEvent _cancelThread = new ManualResetEvent(false);
+        private readonly Queue<Command> _commandQueue = new Queue<Command>();
+        private readonly AutoResetEvent _executeNextCommand = new AutoResetEvent(false);
+        private Thread _commandExecutionThread;
+
         internal LeController(ITransport transport)
         {
-            this.transport = transport;
+            _transport = transport;
         }
 
         /// <summary>
@@ -50,13 +50,13 @@ namespace WinBeacon.Stack.Controllers
         /// </summary>
         public void Open()
         {
-            if (commandExecutionThread != null)
+            if (_commandExecutionThread != null)
                 return;
-            transport.Open();
-            transport.DataReceived += transport_DataReceived;
-            cancelThread.Reset();
-            commandExecutionThread = new Thread(CommandExecutionThreadProc);
-            commandExecutionThread.Start();
+            _transport.Open();
+            _transport.DataReceived += transport_DataReceived;
+            _cancelThread.Reset();
+            _commandExecutionThread = new Thread(CommandExecutionThreadProc);
+            _commandExecutionThread.Start();
             SendCommand(new ResetCommand());
             SendCommand(new SetEventMaskCommand(new byte[] { 0xFF, 0xFF, 0xFB, 0xFF, 0x07, 0xF8, 0xBF, 0x3D }));
             SendCommand(new LeSetEventMaskCommand(new byte[] { 0x1F, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }));
@@ -67,8 +67,7 @@ namespace WinBeacon.Stack.Controllers
             {
                 CommandCompleteCallback = (cmd, deviceAddress) =>
                 {
-                    if (DeviceAddressReceived != null)
-                        DeviceAddressReceived(this, new DeviceAddressReceivedEventArgs(deviceAddress));
+                    DeviceAddressReceived?.Invoke(this, new DeviceAddressReceivedEventArgs(deviceAddress));
                 }
             });
         }
@@ -78,15 +77,15 @@ namespace WinBeacon.Stack.Controllers
         /// </summary>
         public void Close()
         {
-            if (commandExecutionThread == null)
+            if (_commandExecutionThread == null)
                 return;
-            cancelThread.Set();
-            commandExecutionThread.Join();
-            commandExecutionThread = null;
-            lock (commandQueue)
-                commandQueue.Clear();
-            transport.DataReceived -= transport_DataReceived;
-            transport.Close();
+            _cancelThread.Set();
+            _commandExecutionThread.Join();
+            _commandExecutionThread = null;
+            lock (_commandQueue)
+                _commandQueue.Clear();
+            _transport.DataReceived -= transport_DataReceived;
+            _transport.Close();
         }
 
         /// <summary>
@@ -153,49 +152,48 @@ namespace WinBeacon.Stack.Controllers
             {
                 var commandCompleteEvent = (evt as CommandCompleteEvent);
                 Command command = null;
-                lock (commandQueue)
+                lock (_commandQueue)
                 {
-                    if (commandQueue.Count > 0)
+                    if (_commandQueue.Count > 0)
                     {
-                        command = commandQueue.Peek();
+                        command = _commandQueue.Peek();
                         if (command.Opcode == commandCompleteEvent.CommandOpcode)
-                            commandQueue.Dequeue();
+                            _commandQueue.Dequeue();
                         else
                             command = null;
                     }
                 }
                 if (command != null)
                     command.OnCommandComplete(commandCompleteEvent);
-                executeNextCommand.Set();
+                _executeNextCommand.Set();
             }
             else if (evt is LeMetaEvent)
             {
-                if (LeMetaEventReceived != null)
-                    LeMetaEventReceived(this, new LeMetaEventReceivedEventArgs(evt as LeMetaEvent));
+                LeMetaEventReceived?.Invoke(this, new LeMetaEventReceivedEventArgs(evt as LeMetaEvent));
             }
         }
 
         private void CommandExecutionThreadProc()
         {
-            var waitHandles = new WaitHandle[] { cancelThread, executeNextCommand };
+            var waitHandles = new WaitHandle[] { _cancelThread, _executeNextCommand };
             while (WaitHandle.WaitAny(waitHandles) == 1)
             {
                 Command command = null;
-                lock (commandQueue)
-                    if (commandQueue.Count > 0)
-                        command = commandQueue.Peek();
+                lock (_commandQueue)
+                    if (_commandQueue.Count > 0)
+                        command = _commandQueue.Peek();
                 if (command != null)
-                    transport.Send(command.ToByteArray(), DataType.Command);
+                    _transport.Send(command.ToByteArray(), DataType.Command);
             }
         }
 
         private void SendCommand(Command command)
         {
-            lock (commandQueue)
+            lock (_commandQueue)
             {
-                commandQueue.Enqueue(command);
-                if (commandQueue.Count == 1)
-                    executeNextCommand.Set();
+                _commandQueue.Enqueue(command);
+                if (_commandQueue.Count == 1)
+                    _executeNextCommand.Set();
             }
         }
     }

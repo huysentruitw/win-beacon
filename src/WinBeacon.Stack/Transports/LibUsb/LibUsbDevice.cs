@@ -16,7 +16,7 @@ namespace WinBeacon.Stack.Transports.LibUsb
     /// </summary>
     internal class LibUsbDevice : ILibUsbDevice
     {
-        private UsbDevice usbDevice;
+        private UsbDevice _usbDevice;
 
         public int Vid { get; private set; }
         public int Pid { get; private set; }
@@ -29,39 +29,35 @@ namespace WinBeacon.Stack.Transports.LibUsb
 
         public void Open()
         {
-            if (usbDevice != null)
+            if (_usbDevice != null)
                 return;
-            usbDevice = UsbDevice.OpenUsbDevice(new UsbDeviceFinder(Vid, Pid));
-            if (usbDevice == null)
-                throw new WinBeaconException("USB device not found, check VID & PID");
+            _usbDevice = UsbDevice.OpenUsbDevice(new UsbDeviceFinder(Vid, Pid))
+                ?? throw new WinBeaconException("USB device not found, check VID & PID");
         }
 
         public void Close()
         {
-            if (usbDevice == null)
+            if (_usbDevice == null)
                 return;
-            usbDevice.Close();
-            usbDevice = null;
+            _usbDevice.Close();
+            _usbDevice = null;
         }
 
-        public IEnumerable<UsbConfigInfo> Configs
-        {
-            get { return usbDevice.Configs; }
-        }
+        public IEnumerable<UsbConfigInfo> Configs => _usbDevice.Configs;
 
         public UsbEndpointReader OpenEndpointReader(ReadEndpointID readEndpointID)
         {
-            return usbDevice.OpenEndpointReader(readEndpointID);
+            return _usbDevice.OpenEndpointReader(readEndpointID);
         }
 
         public UsbEndpointWriter OpenEndpointWriter(WriteEndpointID writeEndpointID)
         {
-            return usbDevice.OpenEndpointWriter(writeEndpointID);
+            return _usbDevice.OpenEndpointWriter(writeEndpointID);
         }
 
         public bool ControlTransfer(ref UsbSetupPacket setupPacket, object buffer, int bufferLength, out int lengthTransferred)
         {
-            return usbDevice.ControlTransfer(ref setupPacket, buffer, bufferLength, out lengthTransferred);
+            return _usbDevice.ControlTransfer(ref setupPacket, buffer, bufferLength, out lengthTransferred);
         }
     }
 }

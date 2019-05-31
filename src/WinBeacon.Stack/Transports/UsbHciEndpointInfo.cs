@@ -15,6 +15,7 @@ namespace WinBeacon.Stack.Transport
         /// The Bluetooth endpoint type.
         /// </summary>
         public UsbBluetoothEndpointType Type { get; private set; }
+
         /// <summary>
         /// The USB endpoint identifier.
         /// </summary>

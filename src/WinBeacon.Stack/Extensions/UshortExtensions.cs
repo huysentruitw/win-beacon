@@ -17,9 +17,7 @@ namespace WinBeacon.Stack
         /// <param name="value">The ushort.</param>
         /// <returns>The least significant byte.</returns>
         public static byte LoByte(this ushort value)
-        {
-            return (byte)(value & 0xFF);
-        }
+            => (byte)(value & 0xFF);
 
         /// <summary>
         /// Get the most significant byte.
@@ -27,8 +25,6 @@ namespace WinBeacon.Stack
         /// <param name="value">The ushort.</param>
         /// <returns>The most significant byte.</returns>
         public static byte HiByte(this ushort value)
-        {
-            return (byte)(value >> 8);
-        }
+            => (byte)(value >> 8);
     }
 }

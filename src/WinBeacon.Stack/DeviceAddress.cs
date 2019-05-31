@@ -21,22 +21,16 @@ namespace WinBeacon.Stack
         /// <summary>
         /// Empty device address.
         /// </summary>
-        public static DeviceAddress Empty
-        {
-            get
-            {
-                return new DeviceAddress(new byte[6]);
-            }
-        }
+        public static DeviceAddress Empty { get; } = new DeviceAddress(new byte[6]);
 
         /// <summary>
         /// Creates a new <see cref="DeviceAddress"/> instance.
         /// </summary>
-        /// <param name="address"></param>
+        /// <param name="address">The 6 address bytes</param>
         public DeviceAddress(byte[] address)
         {
             if (address == null)
-                throw new ArgumentNullException("address");
+                throw new ArgumentNullException(nameof(address));
             if (address.Length != 6)
                 throw new ArgumentOutOfRangeException("address", "Invalid length, should contain 6 bytes");
             Address = address;

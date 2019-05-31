@@ -18,14 +18,12 @@ namespace WinBeacon.Stack.Transports.LibUsb
     {
         private static readonly TimeSpan writeTimeout = TimeSpan.FromSeconds(5);
 
-        private ILibUsbDevice usbDevice;
-        private Dictionary<UsbBluetoothEndpointType, UsbEndpointBase> endpoints = new Dictionary<UsbBluetoothEndpointType, UsbEndpointBase>();
+        private readonly ILibUsbDevice _usbDevice;
+        private readonly Dictionary<UsbBluetoothEndpointType, UsbEndpointBase> _endpoints = new Dictionary<UsbBluetoothEndpointType, UsbEndpointBase>();
 
         internal LibUsbTransport(ILibUsbDevice usbDevice)
         {
-            if (usbDevice == null)
-                throw new ArgumentNullException("usbDevice");
-            this.usbDevice = usbDevice;
+            _usbDevice = usbDevice ?? throw new ArgumentNullException(nameof(usbDevice));
         }
 
         ~LibUsbTransport()
@@ -42,19 +40,19 @@ namespace WinBeacon.Stack.Transports.LibUsb
 
         public void Open()
         {
-            usbDevice.Open();
+            _usbDevice.Open();
             OpenEndpoints();
         }
 
         public void Close()
         {
             CloseEndpoints();
-            usbDevice.Close();
+            _usbDevice.Close();
         }
 
         public void Send(byte[] data, DataType dataType)
         {
-            if (usbDevice == null)
+            if (_usbDevice == null)
                 throw new WinBeaconException("Transport not open");
             if (data == null)
                 throw new ArgumentNullException("data");
@@ -80,15 +78,9 @@ namespace WinBeacon.Stack.Transports.LibUsb
 
         #endregion
 
-        public int Vid
-        {
-            get { return usbDevice.Vid; }
-        }
+        public int Vid => _usbDevice.Vid;
 
-        public int Pid
-        {
-            get { return usbDevice.Pid; }
-        }
+        public int Pid => _usbDevice.Pid;
 
         private Dictionary<UsbBluetoothEndpointType, byte> GetBluetoothEndpointIds()
         {
@@ -99,7 +91,7 @@ namespace WinBeacon.Stack.Transports.LibUsb
                     { UsbBluetoothEndpointType.AclDataOut, 0x02 },
                     { UsbBluetoothEndpointType.AclDataIn, 0x82 }
                 };
-            foreach (var info in usbDevice.EnumerateBluetoothEndpointInfo())
+            foreach (var info in _usbDevice.EnumerateBluetoothEndpointInfo())
                 endpointIds[info.Type] = info.Id;
             return endpointIds;
         }
@@ -107,34 +99,34 @@ namespace WinBeacon.Stack.Transports.LibUsb
         internal virtual void OpenEndpoints()
         {
             var endpointIds = GetBluetoothEndpointIds();
-            endpoints[UsbBluetoothEndpointType.Commands] = usbDevice.OpenEndpointWriter((WriteEndpointID)endpointIds[UsbBluetoothEndpointType.Commands]);
-            endpoints[UsbBluetoothEndpointType.Events] = usbDevice.OpenEndpointReader((ReadEndpointID)endpointIds[UsbBluetoothEndpointType.Events]);
-            endpoints[UsbBluetoothEndpointType.AclDataOut] = usbDevice.OpenEndpointWriter((WriteEndpointID)endpointIds[UsbBluetoothEndpointType.AclDataOut]);
-            endpoints[UsbBluetoothEndpointType.AclDataIn] = usbDevice.OpenEndpointReader((ReadEndpointID)endpointIds[UsbBluetoothEndpointType.AclDataIn]);
-            var failedEndpointTypes = from x in endpoints where x.Value == null select x.Key;
+            _endpoints[UsbBluetoothEndpointType.Commands] = _usbDevice.OpenEndpointWriter((WriteEndpointID)endpointIds[UsbBluetoothEndpointType.Commands]);
+            _endpoints[UsbBluetoothEndpointType.Events] = _usbDevice.OpenEndpointReader((ReadEndpointID)endpointIds[UsbBluetoothEndpointType.Events]);
+            _endpoints[UsbBluetoothEndpointType.AclDataOut] = _usbDevice.OpenEndpointWriter((WriteEndpointID)endpointIds[UsbBluetoothEndpointType.AclDataOut]);
+            _endpoints[UsbBluetoothEndpointType.AclDataIn] = _usbDevice.OpenEndpointReader((ReadEndpointID)endpointIds[UsbBluetoothEndpointType.AclDataIn]);
+            var failedEndpointTypes = from x in _endpoints where x.Value == null select x.Key;
             if (failedEndpointTypes.Count() > 0)
                 throw new WinBeaconException("Failed to open endpoint(s): {0}",  string.Join(" ", failedEndpointTypes));
-            endpoints[UsbBluetoothEndpointType.Events].SubscribeForDataReceived(data => OnDataReceived(data, DataType.Command));
-            endpoints[UsbBluetoothEndpointType.AclDataIn].SubscribeForDataReceived(data => OnDataReceived(data, DataType.Acl));
+            _endpoints[UsbBluetoothEndpointType.Events].SubscribeForDataReceived(data => OnDataReceived(data, DataType.Command));
+            _endpoints[UsbBluetoothEndpointType.AclDataIn].SubscribeForDataReceived(data => OnDataReceived(data, DataType.Acl));
         }
 
         internal virtual void CloseEndpoints()
         {
-            var openEndpoints = from x in endpoints where x.Value != null select x.Value;
+            var openEndpoints = from x in _endpoints where x.Value != null select x.Value;
             foreach (var endpoint in openEndpoints)
             {
                 if (endpoint is UsbEndpointReader)
                     (endpoint as UsbEndpointReader).DataReceivedEnabled = false;
                 endpoint.Dispose();
             }
-            endpoints.Clear();
+
+            _endpoints.Clear();
         }
 
         internal virtual void SendCommand(byte[] data)
         {
             var setupPacket = new UsbSetupPacket((byte)UsbRequestType.TypeClass | (byte)UsbRequestRecipient.RecipInterface, 0, 0, 0, (short)data.Length);
-            int lengthTransferred;
-            if (!usbDevice.ControlTransfer(ref setupPacket, data, data.Length, out lengthTransferred))
+            if (!_usbDevice.ControlTransfer(ref setupPacket, data, data.Length, out int lengthTransferred))
                 throw new WinBeaconException("USB ControlTransfer failed");
             if (lengthTransferred != data.Length)
                 throw new WinBeaconException("USB ControlTransfer didn't send all bytes. Sent {0} out of {1} bytes.", lengthTransferred, data.Length);
@@ -142,9 +134,8 @@ namespace WinBeacon.Stack.Transports.LibUsb
 
         internal virtual void SendAcl(byte[] data)
         {
-            var endpoint = endpoints[UsbBluetoothEndpointType.AclDataOut] as UsbEndpointWriter;
-            int transferLength;
-            var errorCode = endpoint.Write(data, (int)writeTimeout.TotalMilliseconds, out transferLength);
+            var endpoint = _endpoints[UsbBluetoothEndpointType.AclDataOut] as UsbEndpointWriter;
+            var errorCode = endpoint.Write(data, (int)writeTimeout.TotalMilliseconds, out int transferLength);
             if (errorCode != ErrorCode.Ok)
                 throw new WinBeaconException("USB write operation failed with error code: {0}", errorCode);
             if (transferLength != data.Length)

@@ -19,13 +19,11 @@ namespace WinBeacon.Stack
     {
         public static IEnumerable<UsbBluetoothEndpointInfo> EnumerateBluetoothEndpointInfo(this ILibUsbDevice usbDevice)
         {
-            var config0 = usbDevice.Configs.FirstOrDefault();
-            if (config0 == null)
-                throw new WinBeaconException("USB device has no configurations");
+            var config0 = usbDevice.Configs.FirstOrDefault()
+                ?? throw new WinBeaconException("USB device has no configurations");
  
-            var interface0Info = config0.InterfaceInfoList.FirstOrDefault();
-            if (interface0Info == null)
-                throw new WinBeaconException("USB configuration does not contain an interface");
+            var interface0Info = config0.InterfaceInfoList.FirstOrDefault()
+                ?? throw new WinBeaconException("USB configuration does not contain an interface");
 
             foreach (var endpointInfo in interface0Info.EndpointInfoList)
             {
@@ -34,14 +32,12 @@ namespace WinBeacon.Stack
                     case 0x02:
                         yield return new UsbBluetoothEndpointInfo(
                             type: (endpointInfo.Descriptor.EndpointID & 0x80) == 0x80 ? UsbBluetoothEndpointType.AclDataIn : UsbBluetoothEndpointType.AclDataOut,
-                            id: endpointInfo.Descriptor.EndpointID
-                        );
+                            id: endpointInfo.Descriptor.EndpointID);
                         break;
                     case 0x03:
                         yield return new UsbBluetoothEndpointInfo(
                             type: UsbBluetoothEndpointType.Events,
-                            id: endpointInfo.Descriptor.EndpointID
-                        );
+                            id: endpointInfo.Descriptor.EndpointID);
                         break;
                 }
             }
