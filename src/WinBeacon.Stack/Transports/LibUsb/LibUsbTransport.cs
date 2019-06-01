@@ -105,7 +105,7 @@ namespace WinBeacon.Stack.Transports.LibUsb
             _endpoints[UsbBluetoothEndpointType.AclDataIn] = _usbDevice.OpenEndpointReader((ReadEndpointID)endpointIds[UsbBluetoothEndpointType.AclDataIn]);
             var failedEndpointTypes = from x in _endpoints where x.Value == null select x.Key;
             if (failedEndpointTypes.Count() > 0)
-                throw new WinBeaconException("Failed to open endpoint(s): {0}",  string.Join(" ", failedEndpointTypes));
+                throw new WinBeaconException($"Failed to open endpoint(s): {string.Join(" ", failedEndpointTypes)}");
             _endpoints[UsbBluetoothEndpointType.Events].SubscribeForDataReceived(data => OnDataReceived(data, DataType.Command));
             _endpoints[UsbBluetoothEndpointType.AclDataIn].SubscribeForDataReceived(data => OnDataReceived(data, DataType.Acl));
         }
@@ -129,7 +129,7 @@ namespace WinBeacon.Stack.Transports.LibUsb
             if (!_usbDevice.ControlTransfer(ref setupPacket, data, data.Length, out int lengthTransferred))
                 throw new WinBeaconException("USB ControlTransfer failed");
             if (lengthTransferred != data.Length)
-                throw new WinBeaconException("USB ControlTransfer didn't send all bytes. Sent {0} out of {1} bytes.", lengthTransferred, data.Length);
+                throw new WinBeaconException($"USB ControlTransfer didn't send all bytes. Sent {lengthTransferred} out of {data.Length} bytes");
         }
 
         internal virtual void SendAcl(byte[] data)
@@ -137,9 +137,9 @@ namespace WinBeacon.Stack.Transports.LibUsb
             var endpoint = _endpoints[UsbBluetoothEndpointType.AclDataOut] as UsbEndpointWriter;
             var errorCode = endpoint.Write(data, (int)writeTimeout.TotalMilliseconds, out int transferLength);
             if (errorCode != ErrorCode.Ok)
-                throw new WinBeaconException("USB write operation failed with error code: {0}", errorCode);
+                throw new WinBeaconException($"USB write operation failed with error code: {errorCode}");
             if (transferLength != data.Length)
-                throw new WinBeaconException("USB write operation didn't send all bytes. Sent {0} out of {1} bytes.", transferLength, data.Length);
+                throw new WinBeaconException($"USB write operation didn't send all bytes. Sent {transferLength} out of {data.Length} bytes");
         }
     }
 }

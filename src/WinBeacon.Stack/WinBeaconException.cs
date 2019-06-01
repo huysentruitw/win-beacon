@@ -17,9 +17,8 @@ namespace WinBeacon.Stack
         /// Creates a new exception containing a formatted message.
         /// </summary>
         /// <param name="message">The message.</param>
-        /// <param name="args">Replaces one or more format items in the specified message.</param>
-        public WinBeaconException(string message, params object[] args)
-            : base(string.Format(message, args))
+        public WinBeaconException(string message)
+            : base(message)
         {
         }
 
