@@ -12,7 +12,7 @@ using WinBeacon.Stack.Hci.Events;
 namespace WinBeacon
 {
     /// <summary>
-    /// Class that represents a Beacon.
+    /// Class that represents an Apple iBeacon.
     /// </summary>
     public class Beacon : IComparable
     {
