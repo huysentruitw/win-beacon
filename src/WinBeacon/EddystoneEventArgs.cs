@@ -9,18 +9,18 @@ using System;
 namespace WinBeacon
 {
     /// <summary>
-    /// Event arguments for Apple iBeacon events.
+    /// Event arguments for Eddystone events.
     /// </summary>
-    public class BeaconEventArgs : EventArgs
+    public class EddystoneEventArgs : EventArgs
     {
         /// <summary>
         /// Gets the detected beacon.
         /// </summary>
-        public Beacon Beacon { get; private set; }
+        public Eddystone Eddystone { get; private set; }
 
-        internal BeaconEventArgs(Beacon beacon)
+        internal EddystoneEventArgs(Eddystone eddystone)
         {
-            Beacon = beacon;
+            Eddystone = eddystone;
         }
     }
 }

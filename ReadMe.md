@@ -4,7 +4,7 @@
 
 ## Overview
 
-WinBeacon is a managed .NET (C#) library with a minimal Bluetooth LE Stack that is able to detect and act as an iBeacon¹. This stack doesn't support BLE devices, only the detection and transmission of BLE advertisement packets used by beacons.
+WinBeacon is a managed .NET (C#) library with a minimal Bluetooth LE Stack that is able to detect and act as iBeacon¹ and Eddystone. This stack doesn't support BLE devices, only the detection and transmission of BLE advertisement packets used by beacons.
 
 ## Supported operating systems
 
@@ -59,6 +59,26 @@ using (var hub = new Hub(0x050D, 0x065A))
 {
     hub.EnableAdvertising(new Beacon("B9407F30-F5F8-466E-AFF9-25556B57FE6D", 1000, 2000, -52));
     Console.ReadKey();
+}
+```
+
+### Detecting Eddystone
+
+Currently only the detection of Eddystone UID is supported.
+
+```C#
+using (var hub = new Hub(0x050D, 0x065A))
+{
+	hub.EddystoneDetected += (sender, e) =>
+		{
+			switch (e.Eddystone)
+			{
+				case EddystoneUid eddystoneUid:
+					Console.WriteLine($"Eddystone UID: {eddystoneUid}");
+					break;
+			}
+		};
+	Console.ReadKey();
 }
 ```
 

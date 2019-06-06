@@ -144,6 +144,7 @@ namespace WinBeacon
                         payload.Dequeue(adLength - 1);
                 }
             }
+
             return null;
         }
 

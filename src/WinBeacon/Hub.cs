@@ -54,9 +54,9 @@ namespace WinBeacon
         }
 
         /// <summary>
-        /// Enable advertising as a beacon.
+        /// Enable advertising as an Apple iBeacon.
         /// </summary>
-        /// <param name="beacon">The beacon to emulate.</param>
+        /// <param name="beacon">The Apple iBeacon to emulate.</param>
         /// <param name="advertisingInterval">The advertising interval. Interval should be between 20 ms and 10.24 seconds. Defaults to 1.28 seconds.</param>
         public void EnableAdvertising(Beacon beacon, TimeSpan? advertisingInterval = null)
         {
@@ -78,6 +78,16 @@ namespace WinBeacon
         }
 
         /// <summary>
+        /// Enable advertising as an Eddystone.
+        /// </summary>
+        /// <param name="eddystone">The Eddystone to emulate.</param>
+        /// <param name="advertisingInterval">The advertising interval. Interval should be between 20 ms and 10.24 seconds. Defaults to 1.28 seconds.</param>
+        public void EnableAdvertising(Eddystone eddystone, TimeSpan? advertisingInterval = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
         /// Disable advertising as a beacon.
         /// </summary>
         public void DisableAdvertising()
@@ -88,12 +98,14 @@ namespace WinBeacon
         }
 
         /// <summary>
-        /// Event fired when a beacon is detected. This happens when the dongle receives the beacon's advertising packet.
+        /// Event fired when an Apple iBeacon is detected. This happens when the dongle receives an Apple iBeacon compatible advertising packet.
         /// </summary>
         public event EventHandler<BeaconEventArgs> BeaconDetected;
 
-        private void OnBeaconDetected(Beacon beacon)
-            => BeaconDetected?.Invoke(this, new BeaconEventArgs(beacon));
+        /// <summary>
+        /// Event fired when an Eddystone is detected. This happens when the dongle receives an Eddystone compatible advertising packet.
+        /// </summary>
+        public event EventHandler<EddystoneEventArgs> EddystoneDetected;
 
         private void controller_LeMetaEventReceived(object sender, LeMetaEventReceivedEventArgs e)
         {
@@ -108,7 +120,17 @@ namespace WinBeacon
             {
                 var beacon = Beacon.Parse(advertisingEvent);
                 if (beacon != null)
-                    OnBeaconDetected(beacon);
+                {
+                    BeaconDetected?.Invoke(this, new BeaconEventArgs(beacon));
+                    continue;
+                }
+
+                var eddystone = Eddystone.Parse(advertisingEvent);
+                if (eddystone != null)
+                {
+                    EddystoneDetected?.Invoke(this, new EddystoneEventArgs(eddystone));
+                    continue;
+                }
             }
         }
     }
