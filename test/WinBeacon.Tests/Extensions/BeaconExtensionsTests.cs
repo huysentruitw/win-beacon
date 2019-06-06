@@ -6,7 +6,7 @@
 
 using NUnit.Framework;
 
-namespace WinBeacon.Tests
+namespace WinBeacon.Tests.Extensions
 {
     [TestFixture]
     public class BeaconExtensionsTests
