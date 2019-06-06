@@ -8,7 +8,7 @@ using System.Threading;
 using NUnit.Framework;
 using WinBeacon.Stack.Controllers;
 
-namespace WinBeacon.Tests
+namespace WinBeacon.Stack.Tests.Controllers
 {
     [TestFixture]
     public class LibUsbLeControllerTests

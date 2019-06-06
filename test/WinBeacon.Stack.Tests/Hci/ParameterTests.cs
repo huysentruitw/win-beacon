@@ -7,7 +7,7 @@
 using NUnit.Framework;
 using WinBeacon.Stack.Hci.Parameters;
 
-namespace WinBeacon.Tests
+namespace WinBeacon.Stack.Tests.Hci
 {
     [TestFixture]
     public class ParameterTests

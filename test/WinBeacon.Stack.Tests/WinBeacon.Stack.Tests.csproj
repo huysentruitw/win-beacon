@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\WinBeacon\WinBeacon.csproj" />
+    <ProjectReference Include="..\..\src\WinBeacon.Stack\WinBeacon.Stack.csproj" />
   </ItemGroup>
 
 </Project>

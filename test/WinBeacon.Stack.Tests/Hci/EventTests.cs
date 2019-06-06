@@ -8,7 +8,7 @@ using NUnit.Framework;
 using WinBeacon.Stack.Hci;
 using WinBeacon.Stack.Hci.Events;
 
-namespace WinBeacon.Tests
+namespace WinBeacon.Stack.Tests.Hci
 {
     [TestFixture]
     public class EventTests

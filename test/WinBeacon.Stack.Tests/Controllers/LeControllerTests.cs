@@ -10,12 +10,11 @@ using System.Linq;
 using System.Threading;
 using Moq;
 using NUnit.Framework;
-using WinBeacon.Stack;
 using WinBeacon.Stack.Controllers;
 using WinBeacon.Stack.Hci;
 using WinBeacon.Stack.Hci.Commands;
 
-namespace WinBeacon.Tests
+namespace WinBeacon.Stack.Tests.Controllers
 {
     [TestFixture]
     public class LeControllerTests

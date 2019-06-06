@@ -7,9 +7,8 @@
 using System;
 using System.Collections.Generic;
 using NUnit.Framework;
-using WinBeacon.Stack;
 
-namespace WinBeacon.Tests
+namespace WinBeacon.Stack.Tests.Extensions
 {
     [TestFixture]
     public class QueueExtensionsTests

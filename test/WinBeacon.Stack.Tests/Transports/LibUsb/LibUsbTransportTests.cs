@@ -11,11 +11,10 @@ using LibUsbDotNet.Info;
 using LibUsbDotNet.Main;
 using Moq;
 using NUnit.Framework;
-using WinBeacon.Stack;
 using WinBeacon.Stack.Hci;
 using WinBeacon.Stack.Transports.LibUsb;
 
-namespace WinBeacon.Tests
+namespace WinBeacon.Stack.Tests.Transports.LibUsb
 {
     [TestFixture]
     public class LibUsbTransportTests
