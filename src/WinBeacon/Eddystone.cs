@@ -63,13 +63,13 @@ namespace WinBeacon
             switch (eddystoneFrameType)
             {
                 case EddystoneFrameType.Uid:
-                    return EddystoneUid.ParseFrame(payload);
+                    return EddystoneUid.ParseFrame(payload, e);
                 case EddystoneFrameType.Url:
-                    return EddystoneUrl.ParseFrame(payload);
+                    return EddystoneUrl.ParseFrame(payload, e);
                 case EddystoneFrameType.Tlm:
-                    return EddystoneTlm.ParseFrame(payload);
+                    return EddystoneTlm.ParseFrame(payload, e);
                 case EddystoneFrameType.Eid:
-                    return EddystoneEid.ParseFrame(payload);
+                    return EddystoneEid.ParseFrame(payload, e);
             }
 
             return null;
@@ -90,6 +90,11 @@ namespace WinBeacon
     public sealed class EddystoneUid : Eddystone
     {
         /// <summary>
+        /// Bluetooth MAC-address of the beacon.
+        /// </summary>
+        public byte[] Address { get; private set; }
+
+        /// <summary>
         /// The 10-byte namespace.
         /// </summary>
         public byte[] Namespace { get; private set; }
@@ -104,16 +109,23 @@ namespace WinBeacon
         /// </summary>
         public int CalibratedTxPower { get; private set; }
 
-        internal static EddystoneUid ParseFrame(Queue<byte> payload)
+        /// <summary>
+        /// RSSI power of the beacon in dB.
+        /// </summary>
+        public int Rssi { get; internal set; }
+
+        internal static EddystoneUid ParseFrame(Queue<byte> payload, LeAdvertisingEvent e)
         {
             if (payload.Count != 19)
                 return null;
 
             return new EddystoneUid
             {
+                Address = e.Address,
                 CalibratedTxPower = (sbyte)payload.Dequeue(),
                 Namespace = payload.Dequeue(10),
                 Instance = payload.Dequeue(6),
+                Rssi = e.Rssi,
             };
         }
 
@@ -131,7 +143,7 @@ namespace WinBeacon
     /// </summary>
     public sealed class EddystoneUrl : Eddystone
     {
-        internal static EddystoneUrl ParseFrame(Queue<byte> payload)
+        internal static EddystoneUrl ParseFrame(Queue<byte> payload, LeAdvertisingEvent e)
         {
             return null;
         }
@@ -142,7 +154,7 @@ namespace WinBeacon
     /// </summary>
     public sealed class EddystoneTlm : Eddystone
     {
-        internal static EddystoneTlm ParseFrame(Queue<byte> payload)
+        internal static EddystoneTlm ParseFrame(Queue<byte> payload, LeAdvertisingEvent e)
         {
             return null;
         }
@@ -153,7 +165,7 @@ namespace WinBeacon
     /// </summary>
     public sealed class EddystoneEid : Eddystone
     {
-        internal static EddystoneEid ParseFrame(Queue<byte> payload)
+        internal static EddystoneEid ParseFrame(Queue<byte> payload, LeAdvertisingEvent e)
         {
             return null;
         }
