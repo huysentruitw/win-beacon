@@ -6,6 +6,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using WinBeacon.Stack;
 using WinBeacon.Stack.Hci.Events;
 
@@ -16,6 +18,16 @@ namespace WinBeacon
     /// </summary>
     public abstract class Eddystone
     {
+        /// <summary>
+        /// Bluetooth MAC-address of the beacon.
+        /// </summary>
+        public byte[] Address { get; private set; }
+
+        /// <summary>
+        /// RSSI power of the beacon in dB.
+        /// </summary>
+        public int Rssi { get; internal set; }
+
         /// <summary>
         /// Constructor.
         /// </summary>
@@ -60,19 +72,30 @@ namespace WinBeacon
             if (eddystoneUuid != 0xAAFE)
                 return null;
             var eddystoneFrameType = (EddystoneFrameType)payload.Dequeue();
+            Eddystone result = null;
             switch (eddystoneFrameType)
             {
                 case EddystoneFrameType.Uid:
-                    return EddystoneUid.ParseFrame(payload, e);
+                    result = EddystoneUid.ParseFrame(payload);
+                    break;
                 case EddystoneFrameType.Url:
-                    return EddystoneUrl.ParseFrame(payload, e);
+                    result = EddystoneUrl.ParseFrame(payload);
+                    break;
                 case EddystoneFrameType.Tlm:
-                    return EddystoneTlm.ParseFrame(payload, e);
+                    result = EddystoneTlm.ParseFrame(payload);
+                    break;
                 case EddystoneFrameType.Eid:
-                    return EddystoneEid.ParseFrame(payload, e);
+                    result = EddystoneEid.ParseFrame(payload);
+                    break;
             }
 
-            return null;
+            if (result != null)
+            {
+                result.Address = e.Address;
+                result.Rssi = e.Rssi;
+            }
+
+            return result;
         }
     }
 
@@ -90,9 +113,9 @@ namespace WinBeacon
     public sealed class EddystoneUid : Eddystone
     {
         /// <summary>
-        /// Bluetooth MAC-address of the beacon.
+        /// Calibrated TX power of the beacon in dB at 0m.
         /// </summary>
-        public byte[] Address { get; private set; }
+        public int CalibratedTxPower { get; private set; }
 
         /// <summary>
         /// The 10-byte namespace.
@@ -104,28 +127,16 @@ namespace WinBeacon
         /// </summary>
         public byte[] Instance { get; private set; }
 
-        /// <summary>
-        /// Calibrated TX power of the beacon in dB at 0m.
-        /// </summary>
-        public int CalibratedTxPower { get; private set; }
-
-        /// <summary>
-        /// RSSI power of the beacon in dB.
-        /// </summary>
-        public int Rssi { get; internal set; }
-
-        internal static EddystoneUid ParseFrame(Queue<byte> payload, LeAdvertisingEvent e)
+        internal static EddystoneUid ParseFrame(Queue<byte> payload)
         {
             if (payload.Count != 19)
                 return null;
 
             return new EddystoneUid
             {
-                Address = e.Address,
                 CalibratedTxPower = (sbyte)payload.Dequeue(),
                 Namespace = payload.Dequeue(10),
                 Instance = payload.Dequeue(6),
-                Rssi = e.Rssi,
             };
         }
 
@@ -135,7 +146,6 @@ namespace WinBeacon
         /// <returns>String representation of the Eddystone UID data.</returns>
         public override string ToString()
             => $"Namespace: {BitConverter.ToString(Namespace)}, Instance: {BitConverter.ToString(Instance)}, TxPower: {CalibratedTxPower}dB";
-
     }
 
     /// <summary>
@@ -143,9 +153,75 @@ namespace WinBeacon
     /// </summary>
     public sealed class EddystoneUrl : Eddystone
     {
-        internal static EddystoneUrl ParseFrame(Queue<byte> payload, LeAdvertisingEvent e)
+        /// <summary>
+        /// Calibrated TX power of the beacon in dB at 0m.
+        /// </summary>
+        public int CalibratedTxPower { get; private set; }
+
+        /// <summary>
+        /// The URL broadcasted by the Eddystone Beacon.
+        /// </summary>
+        public string Url { get; private set; }
+
+        /// <summary>
+        /// Returns a string representation of the Eddystone UID data.
+        /// </summary>
+        /// <returns>String representation of the Eddystone UID data.</returns>
+        public override string ToString()
+            => $"URL: {Url}, TxPower: {CalibratedTxPower}dB";
+
+        internal static EddystoneUrl ParseFrame(Queue<byte> payload)
         {
-            return null;
+            if (payload.Count < 3)
+                return null;
+
+            var calibratedTxPower = (sbyte)payload.Dequeue();
+            var schemePrefix = payload.Dequeue();
+            var encodedUrl = payload.DequeueAll();
+
+            return new EddystoneUrl
+            {
+                CalibratedTxPower = calibratedTxPower,
+                Url = $"{GetSchemePrefix(schemePrefix)}{string.Join(string.Empty, encodedUrl.Select(DecodeEncodedChar))}",
+            };
+        }
+
+        private static string GetSchemePrefix(byte schemePrefix)
+        {
+            switch (schemePrefix)
+            {
+                case 0x00: return "http://www.";
+                case 0x01: return "https://www.";
+                case 0x02: return "http://";
+                case 0x03: return "https://";
+                default: return string.Empty;
+            }
+        }
+
+        private static string DecodeEncodedChar(byte encodedChar)
+        {
+            switch (encodedChar)
+            {
+                case 0x00: return ".com/";
+                case 0x01: return ".org/";
+                case 0x02: return ".edu/";
+                case 0x03: return ".net/";
+                case 0x04: return ".info/";
+                case 0x05: return ".biz/";
+                case 0x06: return ".gov/";
+                case 0x07: return ".com";
+                case 0x08: return ".org";
+                case 0x09: return ".edu";
+                case 0x0A: return ".net";
+                case 0x0B: return ".info";
+                case 0x0C: return ".biz";
+                case 0x0D: return ".gov";
+            }
+
+            if (encodedChar <= 0x20 || encodedChar >= 0x7F)
+                return string.Empty;
+
+            return new string((char)encodedChar, 1);
         }
     }
 
@@ -154,7 +230,7 @@ namespace WinBeacon
     /// </summary>
     public sealed class EddystoneTlm : Eddystone
     {
-        internal static EddystoneTlm ParseFrame(Queue<byte> payload, LeAdvertisingEvent e)
+        internal static EddystoneTlm ParseFrame(Queue<byte> payload)
         {
             return null;
         }
@@ -165,7 +241,7 @@ namespace WinBeacon
     /// </summary>
     public sealed class EddystoneEid : Eddystone
     {
-        internal static EddystoneEid ParseFrame(Queue<byte> payload, LeAdvertisingEvent e)
+        internal static EddystoneEid ParseFrame(Queue<byte> payload)
         {
             return null;
         }

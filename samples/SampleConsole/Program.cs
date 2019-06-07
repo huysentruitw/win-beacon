@@ -18,6 +18,9 @@ namespace SampleConsole
                             case EddystoneUid eddystoneUid:
                                 Console.WriteLine($"Eddystone UID: {eddystoneUid}");
                                 break;
+                            case EddystoneUrl eddystoneUrl:
+                                Console.WriteLine($"Eddystone URL: {eddystoneUrl}");
+                                break;
                         }
                     };
 

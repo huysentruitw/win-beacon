@@ -64,7 +64,7 @@ using (var hub = new Hub(0x050D, 0x065A))
 
 ### Detecting Eddystone
 
-Currently only the detection of Eddystone UID is supported.
+Currently only the detection of Eddystone UID and URL is supported.
 
 ```C#
 using (var hub = new Hub(0x050D, 0x065A))
@@ -75,6 +75,9 @@ using (var hub = new Hub(0x050D, 0x065A))
 			{
 				case EddystoneUid eddystoneUid:
 					Console.WriteLine($"Eddystone UID: {eddystoneUid}");
+					break;
+				case EddystoneUrl eddystoneUrl:
+					Console.WriteLine($"Eddystone URL: {eddystoneUrl}");
 					break;
 			}
 		};
